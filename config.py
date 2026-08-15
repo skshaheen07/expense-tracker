@@ -2,7 +2,8 @@ import os
 
 
 class Config:
-    SECRET_KEY = "expense_tracker_secret_key"
+    SECRET_KEY = os.getenv("SECRET_KEY")
+
 
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
