@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Monthly Report</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(
+                135deg,
+                #eef4ff,
+                #f8fbff,
+                #edf5ff
+            );
+
+            min-height: 100vh;
+            color: #0f172a;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: auto;
+            padding: 35px;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+
+        .title h1 {
+            font-size: 40px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .title h1 i {
+            color: #2563eb;
+            margin-right: 8px;
+        }
+
+        .title p {
+            margin-top: 8px;
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 14px 22px;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .dashboard-btn {
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #4f46e5
+            );
+        }
+
+        .pdf-btn {
+            background: linear-gradient(
+                135deg,
+                #dc2626,
+                #ef4444
+            );
+        }
+
+        .excel-btn {
+            background: linear-gradient(
+                135deg,
+                #16a34a,
+                #22c55e
+            );
+        }
+
+        /* =========================
+           SUMMARY CARDS
+        ========================= */
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            transition: 0.35s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.12);
+        }
+
+        .card-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 23px;
+            margin-bottom: 18px;
+        }
+
+        .blue {
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #4f46e5
+            );
+        }
+
+        .green {
+            background: linear-gradient(
+                135deg,
+                #16a34a,
+                #22c55e
+            );
+        }
+
+        .red {
+            background: linear-gradient(
+                135deg,
+                #ef4444,
+                #f97316
+            );
+        }
+
+        .purple {
+            background: linear-gradient(
+                135deg,
+                #7c3aed,
+                #9333ea
+            );
+        }
+
+        .card h4 {
+            color: #64748b;
+            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .card h2 {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .income-value {
+            color: #16a34a;
+        }
+
+        .expense-value {
+            color: #ef4444;
+        }
+
+        .balance-value {
+            color: #2563eb;
+        }
+
+        /* =========================
+           SECTION
+        ========================= */
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .section-title i {
+            color: #2563eb;
+            font-size: 21px;
+        }
+
+        .section-title h2 {
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        /* =========================
+           ANALYTICS
+        ========================= */
+
+        .analytics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .analytics-card {
+            background: white;
+            padding: 28px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .analytics-card h3 {
+            font-size: 21px;
+            margin-bottom: 22px;
+        }
+
+        .progress-title {
+            display: flex;
+            justify-content: space-between;
+            color: #64748b;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .progress {
+            height: 20px;
+            background: #dbeafe;
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                #2563eb,
+                #22c55e
+            );
+            border-radius: 50px;
+        }
+
+        .compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .compare-box {
+            background: #f8fbff;
+            padding: 18px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .compare-box h5 {
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .compare-box h3 {
+            font-size: 25px;
+            margin: 0;
+        }
+
+        /* =========================
+           CATEGORY LIST
+        ========================= */
+
+        .category-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .category {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            background: #f8fbff;
+            border-radius: 14px;
+            transition: 0.3s;
+        }
+
+        .category:hover {
+            transform: translateX(5px);
+            background: #eef5ff;
+        }
+
+        .category-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .category-icon {
+            width: 43px;
+            height: 43px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .food {
+            background: linear-gradient(
+                135deg,
+                #f97316,
+                #fb923c
+            );
+        }
+
+        .travel {
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #3b82f6
+            );
+        }
+
+        .shopping {
+            background: linear-gradient(
+                135deg,
+                #ec4899,
+                #f472b6
+            );
+        }
+
+        .other {
+            background: linear-gradient(
+                135deg,
+                #10b981,
+                #34d399
+            );
+        }
+
+        .category-title {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .category-sub {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .category-price {
+            font-weight: 700;
+            font-size: 17px;
+        }
+
+        /* =========================
+           TABLE
+        ========================= */
+
+        .table-box {
+            background: white;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            overflow-x: auto;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .table-header h2 {
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .table-header span {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        th {
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #4f46e5
+            );
+
+            color: white;
+            padding: 16px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th:first-child {
+            border-radius: 10px 0 0 10px;
+        }
+
+        th:last-child {
+            border-radius: 0 10px 10px 0;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #edf2ff;
+            color: #334155;
+            font-size: 14px;
+        }
+
+        tbody tr {
+            transition: 0.3s;
+        }
+
+        tbody tr:hover {
+            background: #f8fbff;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 13px;
+            border-radius: 30px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-income {
+            background: #16a34a;
+        }
+
+        .badge-expense {
+            background: #ef4444;
+        }
+
+        .amount-income {
+            color: #16a34a;
+            font-weight: 700;
+        }
+
+        .amount-expense {
+            color: #ef4444;
+            font-weight: 700;
+        }
+
+        .status-income {
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        .status-expense {
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        /* =========================
+           HEALTH CARDS
+        ========================= */
+
+        .health-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        /* =========================
+           AI INSIGHTS
+        ========================= */
+
+        .insights {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .insight-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .insight-card h4 {
+            margin-bottom: 12px;
+            color: #64748b;
+        }
+
+        .insight-card p {
+            color: #475569;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        /* =========================
+           SUMMARY MESSAGE
+        ========================= */
+
+        .summary-box {
+            background: white;
+            padding: 28px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .summary-box p {
+            color: #475569;
+            font-size: 16px;
+            line-height: 1.9;
+        }
+
+        /* =========================
+           EMPTY
+        ========================= */
+
+        .empty {
+            text-align: center;
+            padding: 70px;
+        }
+
+        .empty i {
+            font-size: 65px;
+            color: #2563eb;
+            margin-bottom: 20px;
+        }
+
+        .empty h2 {
+            margin-bottom: 10px;
+        }
+
+        .empty p {
+            color: #64748b;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+            padding: 35px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        footer hr {
+            border: none;
+            height: 1px;
+            background: #dbeafe;
+            margin-bottom: 20px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media(max-width:1100px) {
+
+            .summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .health-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .insights {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media(max-width:850px) {
+
+            .analytics {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .header-actions {
+                flex-wrap: wrap;
+            }
+
+        }
+
+        @media(max-width:600px) {
+
+            .container {
+                padding: 20px;
+            }
+
+            .title h1 {
+                font-size: 30px;
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .health-grid,
+            .insights {
+                grid-template-columns: 1fr;
+            }
+
+            .header-actions {
+                width: 100%;
+            }
+
+            .btn {
+                flex: 1;
+                justify-content: center;
+            }
+
+            .compare {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <div class="header">
+
+        <div class="title">
+
+            <h1>
+                <i class="fa-solid fa-chart-column"></i>
+                Monthly Financial Report
+            </h1>
+
+            <p>
+                Financial summary for
+                <strong>
+                    {{ today.strftime("%B %Y") }}
+                </strong>
+            </p>
+
+        </div>
+
+
+        <div class="header-actions">
+
+            <a href="{{ url_for('export_pdf') }}"
+               class="btn pdf-btn">
+
+                <i class="fa-solid fa-file-pdf"></i>
+                PDF
+
+            </a>
+
+
+            <a href="{{ url_for('export_excel') }}"
+               class="btn excel-btn">
+
+                <i class="fa-solid fa-file-excel"></i>
+                Excel
+
+            </a>
+
+
+            <a href="{{ url_for('dashboard') }}"
+               class="btn dashboard-btn">
+
+                <i class="fa-solid fa-house"></i>
+                Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         SUMMARY
+    ========================== -->
+
+    <div class="summary">
+
+
+        <div class="card">
+
+            <div class="card-icon blue">
+
+                <i class="fa-solid fa-money-bill-trend-up"></i>
+
+            </div>
+
+            <h4>Total Income</h4>
+
+            <h2 class="income-value">
+
+                ₹{{ "%.2f"|format(total_income) }}
+
+            </h2>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon red">
+
+                <i class="fa-solid fa-wallet"></i>
+
+            </div>
+
+            <h4>Total Expense</h4>
+
+            <h2 class="expense-value">
+
+                ₹{{ "%.2f"|format(total_expense) }}
+
+            </h2>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon green">
+
+                <i class="fa-solid fa-piggy-bank"></i>
+
+            </div>
+
+            <h4>Total Savings</h4>
+
+            <h2 class="balance-value">
+
+                ₹{{ "%.2f"|format(balance) }}
+
+            </h2>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon purple">
+
+                <i class="fa-solid fa-receipt"></i>
+
+            </div>
+
+            <h4>Transactions</h4>
+
+            <h2>
+
+                {{ transactions|length }}
+
+            </h2>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =========================
+         ANALYTICS
+    ========================== -->
+
+    <div class="analytics">
+
+
+        <!-- Income / Expense -->
+
+        <div class="analytics-card">
+
+            <h3>
+                <i class="fa-solid fa-chart-line"></i>
+                Income vs Expense
+            </h3>
+
+
+            {% set expense_percentage =
+                (total_expense / total_income * 100)
+                if total_income > 0 else 0
+            %}
+
+            {% set safe_percentage =
+                [expense_percentage, 100]|min
+            %}
+
+
+            <div class="progress-title">
+
+                <span>
+                    Monthly Spending
+                </span>
+
+                <span>
+                    {{ "%.1f"|format(expense_percentage) }}%
+                </span>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div class="progress-bar"
+                     style="width:{{ safe_percentage }}%;">
+
+                </div>
+
+            </div>
+
+
+            <div class="compare">
+
+
+                <div class="compare-box">
+
+                    <h5>Total Income</h5>
+
+                    <h3 class="income-value">
+
+                        ₹{{ "%.2f"|format(total_income) }}
+
+                    </h3>
+
+                </div>
+
+
+                <div class="compare-box">
+
+                    <h5>Total Expense</h5>
+
+                    <h3 class="expense-value">
+
+                        ₹{{ "%.2f"|format(total_expense) }}
+
+                    </h3>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- Categories -->
+
+        <div class="analytics-card">
+
+            <h3>
+                <i class="fa-solid fa-layer-group"></i>
+                Expense Categories
+            </h3>
+
+
+            {% set food = namespace(total=0) %}
+            {% set travel = namespace(total=0) %}
+            {% set shopping = namespace(total=0) %}
+            {% set other = namespace(total=0) %}
+
+
+            {% for t in transactions %}
+
+                {% if t.type == "Expense" %}
+
+                    {% if t.category == "Food" %}
+
+                        {% set food.total =
+                            food.total + t.amount %}
+
+                    {% elif t.category == "Travel" %}
+
+                        {% set travel.total =
+                            travel.total + t.amount %}
+
+                    {% elif t.category == "Shopping" %}
+
+                        {% set shopping.total =
+                            shopping.total + t.amount %}
+
+                    {% else %}
+
+                        {% set other.total =
+                            other.total + t.amount %}
+
+                    {% endif %}
+
+                {% endif %}
+
+            {% endfor %}
+
+
+            <div class="category-list">
+
+
+                <div class="category">
+
+                    <div class="category-left">
+
+                        <div class="category-icon food">
+
+                            <i class="fa-solid fa-utensils"></i>
+
+                        </div>
+
+                        <div>
+
+                            <div class="category-title">
+                                Food
+                            </div>
+
+                            <div class="category-sub">
+                                Meals & Restaurants
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="category-price">
+
+                        ₹{{ "%.2f"|format(food.total) }}
+
+                    </div>
+
+                </div>
+
+
+                <div class="category">
+
+                    <div class="category-left">
+
+                        <div class="category-icon travel">
+
+                            <i class="fa-solid fa-car"></i>
+
+                        </div>
+
+                        <div>
+
+                            <div class="category-title">
+                                Travel
+                            </div>
+
+                            <div class="category-sub">
+                                Fuel & Transport
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="category-price">
+
+                        ₹{{ "%.2f"|format(travel.total) }}
+
+                    </div>
+
+                </div>
+
+
+                <div class="category">
+
+                    <div class="category-left">
+
+                        <div class="category-icon shopping">
+
+                            <i class="fa-solid fa-bag-shopping"></i>
+
+                        </div>
+
+                        <div>
+
+                            <div class="category-title">
+                                Shopping
+                            </div>
+
+                            <div class="category-sub">
+                                Lifestyle
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="category-price">
+
+                        ₹{{ "%.2f"|format(shopping.total) }}
+
+                    </div>
+
+                </div>
+
+
+                <div class="category">
+
+                    <div class="category-left">
+
+                        <div class="category-icon other">
+
+                            <i class="fa-solid fa-layer-group"></i>
+
+                        </div>
+
+                        <div>
+
+                            <div class="category-title">
+                                Others
+                            </div>
+
+                            <div class="category-sub">
+                                Miscellaneous
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="category-price">
+
+                        ₹{{ "%.2f"|format(other.total) }}
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         MONTHLY TRANSACTIONS
+    ========================== -->
+
+    <div class="section">
+
+        <div class="table-box">
+
+
+            <div class="table-header">
+
+                <div>
+
+                    <h2>
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        Monthly Transactions
+                    </h2>
+
+                    <span>
+                        {{ transactions|length }}
+                        Transactions Recorded
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            {% if transactions %}
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Date</th>
+
+                        <th>Type</th>
+
+                        <th>Title</th>
+
+                        <th>Category</th>
+
+                        <th>Amount</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for transaction in transactions %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ transaction.date.strftime("%d %b %Y") }}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if transaction.type == "Income" %}
+
+                                <span class="badge badge-income">
+
+                                    <i class="fa-solid fa-arrow-trend-up"></i>
+
+                                    Income
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-expense">
+
+                                    <i class="fa-solid fa-arrow-trend-down"></i>
+
+                                    Expense
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            <strong>
+                                {{ transaction.title }}
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+
+                            {{ transaction.category }}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if transaction.type == "Income" %}
+
+                                <span class="amount-income">
+
+                                    + ₹{{ "%.2f"|format(transaction.amount) }}
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="amount-expense">
+
+                                    - ₹{{ "%.2f"|format(transaction.amount) }}
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if transaction.type == "Income" %}
+
+                                <span class="status-income">
+                                    Completed
+                                </span>
+
+                            {% else %}
+
+                                <span class="status-expense">
+                                    Paid
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+
+            {% else %}
+
+            <div class="empty">
+
+                <i class="fa-solid fa-wallet"></i>
+
+                <h2>
+                    No Transactions Found
+                </h2>
+
+                <p>
+                    Start adding income and expenses
+                    to generate your monthly report.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         FINANCIAL HEALTH
+    ========================== -->
+
+    <div class="section">
+
+        <div class="section-title">
+
+            <i class="fa-solid fa-heart-pulse"></i>
+
+            <h2>
+                Financial Health
+            </h2>
+
+        </div>
+
+
+        <div class="health-grid">
+
+
+            <div class="card">
+
+                <div class="card-icon green">
+
+                    <i class="fa-solid fa-coins"></i>
+
+                </div>
+
+                <h4>Saving Rate</h4>
+
+                <h2>
+
+                    {% if total_income > 0 %}
+
+                        {{ "%.1f"|format(
+                            (balance / total_income) * 100
+                        ) }}%
+
+                    {% else %}
+
+                        0%
+
+                    {% endif %}
+
+                </h2>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon blue">
+
+                    <i class="fa-solid fa-chart-pie"></i>
+
+                </div>
+
+                <h4>Income Ratio</h4>
+
+                <h2>
+
+                    {% if total_income > 0 %}
+
+                        {{ "%.1f"|format(
+                            (total_income /
+                            (total_income + total_expense)) * 100
+                        ) }}%
+
+                    {% else %}
+
+                        0%
+
+                    {% endif %}
+
+                </h2>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon red">
+
+                    <i class="fa-solid fa-credit-card"></i>
+
+                </div>
+
+                <h4>Expense Ratio</h4>
+
+                <h2>
+
+                    {% if total_income > 0 %}
+
+                        {{ "%.1f"|format(
+                            (total_expense /
+                            total_income) * 100
+                        ) }}%
+
+                    {% else %}
+
+                        0%
+
+                    {% endif %}
+
+                </h2>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon purple">
+
+                    <i class="fa-solid fa-ranking-star"></i>
+
+                </div>
+
+                <h4>Financial Score</h4>
+
+                <h2>
+
+                    {% if balance > 0 %}
+                        95
+                    {% else %}
+                        65
+                    {% endif %}
+
+                    /100
+
+                </h2>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         AI INSIGHTS
+    ========================== -->
+
+    <div class="section">
+
+        <div class="section-title">
+
+            <i class="fa-solid fa-robot"></i>
+
+            <h2>
+                AI Financial Insights
+            </h2>
+
+        </div>
+
+
+        <div class="insights">
+
+
+            <div class="insight-card">
+
+                <div class="card-icon blue">
+
+                    <i class="fa-solid fa-lightbulb"></i>
+
+                </div>
+
+                <h4>
+                    Recommendation
+                </h4>
+
+                <p>
+
+                    {% if balance > 0 %}
+
+                        Excellent! You saved
+
+                        <strong style="color:#16a34a;">
+
+                            ₹{{ "%.2f"|format(balance) }}
+
+                        </strong>
+
+                        this month.
+
+                        Continue maintaining this
+                        saving habit.
+
+                    {% else %}
+
+                        Your expenses exceeded your
+                        income.
+
+                        Consider reducing unnecessary
+                        spending.
+
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+
+            <div class="insight-card">
+
+                <div class="card-icon green">
+
+                    <i class="fa-solid fa-piggy-bank"></i>
+
+                </div>
+
+                <h4>
+                    Savings Suggestion
+                </h4>
+
+                <p>
+
+                    Try following the
+
+                    <strong>
+                        50-30-20 Rule
+                    </strong>
+
+                    where 50% goes toward needs,
+                    30% toward wants and 20% toward
+                    savings.
+
+                </p>
+
+            </div>
+
+
+            <div class="insight-card">
+
+                <div class="card-icon purple">
+
+                    <i class="fa-solid fa-chart-simple"></i>
+
+                </div>
+
+                <h4>
+                    Expense Analysis
+                </h4>
+
+                <p>
+
+                    {% if total_income > 0 %}
+
+                        You spent
+
+                        <strong>
+
+                            {{ "%.1f"|format(
+                                (total_expense /
+                                total_income) * 100
+                            ) }}%
+
+                        </strong>
+
+                        of your income.
+
+                    {% else %}
+
+                        No income available
+                        for analysis.
+
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+
+            <div class="insight-card">
+
+                <div class="card-icon red">
+
+                    <i class="fa-solid fa-bullseye"></i>
+
+                </div>
+
+                <h4>
+                    Goal Status
+                </h4>
+
+                <p>
+
+                    {% if balance > 5000 %}
+
+                        🎉 Amazing!
+                        Monthly savings goal achieved.
+
+                    {% elif balance > 0 %}
+
+                        👍 Good progress.
+                        Keep increasing your savings.
+
+                    {% else %}
+
+                        ⚠ Focus on reducing
+                        unnecessary expenses.
+
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         MONTHLY SUMMARY
+    ========================== -->
+
+    <div class="section">
+
+        <div class="section-title">
+
+            <i class="fa-solid fa-calendar-check"></i>
+
+            <h2>
+                Monthly Summary
+            </h2>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <p>
+
+                During
+
+                <strong>
+                    {{ today.strftime("%B %Y") }}
+                </strong>,
+
+                you recorded
+
+                <strong>
+                    {{ transactions|length }}
+                </strong>
+
+                transactions.
+
+                Your total income was
+
+                <strong style="color:#16a34a;">
+
+                    ₹{{ "%.2f"|format(total_income) }}
+
+                </strong>
+
+                while your total expense reached
+
+                <strong style="color:#ef4444;">
+
+                    ₹{{ "%.2f"|format(total_expense) }}
+
+                </strong>.
+
+                Your remaining balance is
+
+                <strong style="color:#2563eb;">
+
+                    ₹{{ "%.2f"|format(balance) }}
+
+                </strong>.
+
+                {% if balance > 0 %}
+
+                    You maintained a healthy
+                    financial position this month.
+                    Keep saving and investing regularly.
+
+                {% else %}
+
+                    Your expenses exceeded your
+                    earnings. Review your spending
+                    habits to improve your finances
+                    next month.
+
+                {% endif %}
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <hr>
+
+        <i class="fa-solid fa-wallet"></i>
+
+        Expense Tracker
+
+        &nbsp; | &nbsp;
+
+        Monthly Financial Report
+
+        &nbsp; | &nbsp;
+
+        Generated on
+
+        {{ today.strftime("%d %B %Y") }}
+
+    </footer>
+
+
+</div>
+
+</body>
+
+</html>

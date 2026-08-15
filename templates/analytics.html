@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Financial Analytics</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #edf4ff,
+                    #f8fbff,
+                    #eef6ff
+                );
+
+            color: #0f172a;
+
+        }
+
+        .container {
+
+            max-width: 1400px;
+
+            margin: auto;
+
+            padding: 35px;
+
+        }
+
+        /* HEADER */
+
+        .header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 35px;
+
+        }
+
+        .header-left h1 {
+
+            font-size: 40px;
+
+            font-weight: 700;
+
+            color: #0f172a;
+
+        }
+
+        .header-left p {
+
+            color: #64748b;
+
+            margin-top: 7px;
+
+        }
+
+        .dashboard-btn {
+
+            text-decoration: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #4f46e5
+                );
+
+            color: white;
+
+            padding: 14px 24px;
+
+            border-radius: 13px;
+
+            font-weight: 600;
+
+            box-shadow:
+                0 10px 25px rgba(37,99,235,.20);
+
+            transition: .3s;
+
+        }
+
+        .dashboard-btn:hover {
+
+            color: white;
+
+            transform: translateY(-3px);
+
+        }
+
+        /* FILTER */
+
+        .filter-card {
+
+            background: rgba(255,255,255,.92);
+
+            padding: 28px;
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,.08);
+
+            margin-bottom: 30px;
+
+        }
+
+        .filter-title {
+
+            font-size: 21px;
+
+            font-weight: 700;
+
+            margin-bottom: 20px;
+
+            color: #0f172a;
+
+        }
+
+        .filter-row {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                1fr
+                auto;
+
+            gap: 20px;
+
+            align-items: end;
+
+        }
+
+        .form-group label {
+
+            display: block;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            color: #475569;
+
+            margin-bottom: 8px;
+
+        }
+
+        .form-control {
+
+            width: 100%;
+
+            padding: 13px 15px;
+
+            border: 1px solid #dbeafe;
+
+            border-radius: 12px;
+
+            outline: none;
+
+            background: #f8fbff;
+
+            font-size: 15px;
+
+        }
+
+        .form-control:focus {
+
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px rgba(37,99,235,.10);
+
+        }
+
+        .view-btn {
+
+            border: none;
+
+            padding: 13px 25px;
+
+            border-radius: 12px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #4f46e5
+                );
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: .3s;
+
+        }
+
+        .view-btn:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 10px 25px rgba(37,99,235,.20);
+
+        }
+
+        /* SELECTED PERIOD */
+
+        .period {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #4f46e5
+                );
+
+            color: white;
+
+            padding: 22px 25px;
+
+            border-radius: 20px;
+
+            margin-bottom: 30px;
+
+            box-shadow:
+                0 15px 30px rgba(37,99,235,.20);
+
+        }
+
+        .period h3 {
+
+            font-size: 22px;
+
+            margin-bottom: 5px;
+
+        }
+
+        .period p {
+
+            opacity: .85;
+
+        }
+
+        /* SUMMARY */
+
+        .summary {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap: 25px;
+
+            margin-bottom: 30px;
+
+        }
+
+        .summary-card {
+
+            background: rgba(255,255,255,.92);
+
+            padding: 25px;
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,.08);
+
+            transition: .3s;
+
+        }
+
+        .summary-card:hover {
+
+            transform: translateY(-5px);
+
+        }
+
+        .summary-icon {
+
+            width: 60px;
+
+            height: 60px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 16px;
+
+            color: white;
+
+            font-size: 24px;
+
+            margin-bottom: 18px;
+
+        }
+
+        .blue {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #4f46e5
+                );
+
+        }
+
+        .green {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #16a34a,
+                    #22c55e
+                );
+
+        }
+
+        .red {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ef4444,
+                    #f97316
+                );
+
+        }
+
+        .summary-card h5 {
+
+            color: #64748b;
+
+            font-size: 15px;
+
+            margin-bottom: 8px;
+
+        }
+
+        .summary-card h2 {
+
+            font-size: 30px;
+
+            font-weight: 700;
+
+        }
+
+        /* CHARTS */
+
+        .charts {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                1fr;
+
+            gap: 30px;
+
+        }
+
+        .chart-card {
+
+            background: rgba(255,255,255,.92);
+
+            padding: 30px;
+
+            border-radius: 24px;
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,.08);
+
+            min-height: 450px;
+
+        }
+
+        .chart-card h2 {
+
+            font-size: 23px;
+
+            margin-bottom: 25px;
+
+        }
+
+        .chart-wrapper {
+
+            height: 330px;
+
+        }
+
+        /* NO DATA */
+
+        .no-data {
+
+            background: rgba(255,255,255,.92);
+
+            padding: 70px;
+
+            border-radius: 24px;
+
+            text-align: center;
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,.08);
+
+        }
+
+        .no-data i {
+
+            font-size: 65px;
+
+            color: #2563eb;
+
+            margin-bottom: 20px;
+
+        }
+
+        .no-data h2 {
+
+            font-size: 28px;
+
+            margin-bottom: 10px;
+
+        }
+
+        .no-data p {
+
+            color: #64748b;
+
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:900px) {
+
+            .charts {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .summary {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .filter-row {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+        @media(max-width:700px) {
+
+            .container {
+
+                padding: 20px;
+
+            }
+
+            .header {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 20px;
+
+            }
+
+            .header-left h1 {
+
+                font-size: 32px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="header-left">
+
+            <h1>
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                Financial Analytics
+
+            </h1>
+
+            <p>
+
+                Analyze your finances for any month and year.
+
+            </p>
+
+        </div>
+
+
+        <a href="{{ url_for('dashboard') }}"
+           class="dashboard-btn">
+
+            <i class="fa-solid fa-house"></i>
+
+            Dashboard
+
+        </a>
+
+    </div>
+
+
+    <!-- FILTER -->
+
+    <div class="filter-card">
+
+        <div class="filter-title">
+
+            <i class="fa-solid fa-calendar-days"></i>
+
+            Select Analysis Period
+
+        </div>
+
+
+        <form method="GET"
+              action="{{ url_for('analytics') }}">
+
+            <div class="filter-row">
+
+
+                <div class="form-group">
+
+                    <label>
+
+                        Month
+
+                    </label>
+
+                    <select
+                        name="month"
+                        class="form-control"
+                        required>
+
+                        <option value="1"
+                        {% if selected_month == 1 %}selected{% endif %}>
+                            January
+                        </option>
+
+                        <option value="2"
+                        {% if selected_month == 2 %}selected{% endif %}>
+                            February
+                        </option>
+
+                        <option value="3"
+                        {% if selected_month == 3 %}selected{% endif %}>
+                            March
+                        </option>
+
+                        <option value="4"
+                        {% if selected_month == 4 %}selected{% endif %}>
+                            April
+                        </option>
+
+                        <option value="5"
+                        {% if selected_month == 5 %}selected{% endif %}>
+                            May
+                        </option>
+
+                        <option value="6"
+                        {% if selected_month == 6 %}selected{% endif %}>
+                            June
+                        </option>
+
+                        <option value="7"
+                        {% if selected_month == 7 %}selected{% endif %}>
+                            July
+                        </option>
+
+                        <option value="8"
+                        {% if selected_month == 8 %}selected{% endif %}>
+                            August
+                        </option>
+
+                        <option value="9"
+                        {% if selected_month == 9 %}selected{% endif %}>
+                            September
+                        </option>
+
+                        <option value="10"
+                        {% if selected_month == 10 %}selected{% endif %}>
+                            October
+                        </option>
+
+                        <option value="11"
+                        {% if selected_month == 11 %}selected{% endif %}>
+                            November
+                        </option>
+
+                        <option value="12"
+                        {% if selected_month == 12 %}selected{% endif %}>
+                            December
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+
+                        Year
+
+                    </label>
+
+                    <select
+                        name="year"
+                        class="form-control"
+                        required>
+
+                        {% for y in range(2024, 2031) %}
+
+                        <option value="{{ y }}"
+                        {% if selected_year == y %}selected{% endif %}>
+
+                            {{ y }}
+
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="view-btn">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    View Analytics
+
+                </button>
+
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- SELECTED PERIOD -->
+
+    <div class="period">
+
+        <h3>
+
+            <i class="fa-solid fa-calendar-check"></i>
+
+            Analysis for
+
+            {% if selected_month == 1 %}January
+            {% elif selected_month == 2 %}February
+            {% elif selected_month == 3 %}March
+            {% elif selected_month == 4 %}April
+            {% elif selected_month == 5 %}May
+            {% elif selected_month == 6 %}June
+            {% elif selected_month == 7 %}July
+            {% elif selected_month == 8 %}August
+            {% elif selected_month == 9 %}September
+            {% elif selected_month == 10 %}October
+            {% elif selected_month == 11 %}November
+            {% elif selected_month == 12 %}December
+            {% endif %}
+
+            {{ selected_year }}
+
+        </h3>
+
+        <p>
+
+            Your financial performance for the selected period.
+
+        </p>
+
+    </div>
+
+
+    <!-- SUMMARY -->
+
+    <div class="summary">
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon blue">
+
+                <i class="fa-solid fa-money-bill-trend-up"></i>
+
+            </div>
+
+            <h5>Total Income</h5>
+
+            <h2 style="color:#16a34a;">
+
+                ₹{{ "%.2f"|format(total_income) }}
+
+            </h2>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon red">
+
+                <i class="fa-solid fa-wallet"></i>
+
+            </div>
+
+            <h5>Total Expense</h5>
+
+            <h2 style="color:#ef4444;">
+
+                ₹{{ "%.2f"|format(total_expense) }}
+
+            </h2>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon green">
+
+                <i class="fa-solid fa-piggy-bank"></i>
+
+            </div>
+
+            <h5>Savings Rate</h5>
+
+            <h2 style="color:#2563eb;">
+
+                {{ "%.1f"|format(savings_rate) }}%
+
+            </h2>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- CHARTS -->
+
+    <div class="charts">
+
+
+        <!-- INCOME VS EXPENSE -->
+
+        <div class="chart-card">
+
+            <h2>
+
+                <i class="fa-solid fa-chart-column"></i>
+
+                Income vs Expense
+
+            </h2>
+
+            <div class="chart-wrapper">
+
+                <canvas id="barChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+        <!-- SAVINGS RATE -->
+
+        <div class="chart-card">
+
+            <h2>
+
+                <i class="fa-solid fa-chart-pie"></i>
+
+                Savings Rate
+
+            </h2>
+
+            <div class="chart-wrapper">
+
+                <canvas id="pieChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+/* BAR CHART */
+
+new Chart(
+
+    document.getElementById('barChart'),
+
+    {
+
+        type: 'bar',
+
+        data: {
+
+            labels: [
+                'Income',
+                'Expense'
+            ],
+
+            datasets: [
+
+                {
+
+                    label: 'Amount (₹)',
+
+                    data: [
+
+                        {{ total_income }},
+
+                        {{ total_expense }}
+
+                    ],
+
+                    backgroundColor: [
+
+                        '#2563eb',
+
+                        '#ef4444'
+
+                    ],
+
+                    borderRadius: 10
+
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            plugins: {
+
+                legend: {
+
+                    display: false
+
+                }
+
+            },
+
+            scales: {
+
+                y: {
+
+                    beginAtZero: true
+
+                }
+
+            }
+
+        }
+
+    }
+
+);
+
+
+/* SAVINGS CHART */
+
+new Chart(
+
+    document.getElementById('pieChart'),
+
+    {
+
+        type: 'doughnut',
+
+        data: {
+
+            labels: [
+
+                'Savings',
+
+                'Spent'
+
+            ],
+
+            datasets: [
+
+                {
+
+                    data: [
+
+                        {{ savings if savings > 0 else 0 }},
+
+                        {{ total_expense }}
+
+                    ],
+
+                    backgroundColor: [
+
+                        '#16a34a',
+
+                        '#ef4444'
+
+                    ],
+
+                    borderWidth: 0
+
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            cutout: '65%',
+
+            plugins: {
+
+                legend: {
+
+                    position: 'bottom'
+
+                }
+
+            }
+
+        }
+
+    }
+
+);
+
+</script>
+
+
+</body>
+
+</html>

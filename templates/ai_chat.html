@@ -1,0 +1,1960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Financial Assistant</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Inter", "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, rgba(37, 99, 235, 0.10), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(79, 70, 229, 0.08), transparent 30%),
+                #f6f8fc;
+            color: #0f172a;
+        }
+
+        /* ==============================
+           MAIN APPLICATION
+        ============================== */
+
+        .app {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ==============================
+           TOP NAVIGATION
+        ============================== */
+
+        .topbar {
+            height: 76px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid #e2e8f0;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 32px;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .brand-icon {
+            width: 45px;
+            height: 45px;
+
+            border-radius: 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+            font-size: 19px;
+
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #4f46e5
+            );
+
+            box-shadow:
+                0 10px 25px rgba(37, 99, 235, 0.25);
+        }
+
+        .brand-text h2 {
+            font-size: 18px;
+            font-weight: 750;
+            margin: 0;
+        }
+
+        .brand-text span {
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px 17px;
+
+            border-radius: 11px;
+
+            text-decoration: none;
+
+            color: #475569;
+            background: #f8fafc;
+
+            border: 1px solid #e2e8f0;
+
+            font-size: 13px;
+            font-weight: 650;
+
+            transition: 0.25s;
+        }
+
+        .back-btn:hover {
+            color: #2563eb;
+            background: #eff6ff;
+            border-color: #bfdbfe;
+            transform: translateY(-1px);
+        }
+
+        /* ==============================
+           CONTENT
+        ============================== */
+
+        .content {
+            width: min(1180px, 94%);
+            margin: auto;
+
+            padding: 38px 0 45px;
+
+            flex: 1;
+        }
+
+        /* ==============================
+           HERO
+        ============================== */
+
+        .hero {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .hero-icon {
+            width: 72px;
+            height: 72px;
+
+            margin: 0 auto 16px;
+
+            border-radius: 22px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+            font-size: 30px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #4f46e5,
+                    #7c3aed
+                );
+
+            box-shadow:
+                0 18px 40px rgba(79, 70, 229, 0.28);
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            font-weight: 800;
+
+            margin-bottom: 8px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #2563eb,
+                    #4f46e5,
+                    #7c3aed
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            margin: 0;
+
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+        /* ==============================
+           AI STATUS
+        ============================== */
+
+        .ai-status {
+            width: fit-content;
+
+            margin: 20px auto 0;
+
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 7px 13px;
+
+            border-radius: 50px;
+
+            background: #ecfdf5;
+            border: 1px solid #bbf7d0;
+
+            color: #15803d;
+
+            font-size: 12px;
+            font-weight: 650;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+
+            box-shadow:
+                0 0 0 4px rgba(34, 197, 94, 0.12);
+        }
+
+        /* ==============================
+           CHAT CONTAINER
+        ============================== */
+
+        .chat-wrapper {
+            background: rgba(255,255,255,0.82);
+
+            border: 1px solid rgba(226,232,240,0.9);
+
+            border-radius: 26px;
+
+            box-shadow:
+                0 20px 60px rgba(15,23,42,0.08);
+
+            overflow: hidden;
+        }
+
+        /* ==============================
+           CHAT HEADER
+        ============================== */
+
+        .chat-header {
+            padding: 18px 24px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #f8fbff
+                );
+
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .assistant-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .assistant-avatar {
+            width: 43px;
+            height: 43px;
+
+            border-radius: 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #4f46e5
+                );
+        }
+
+        .assistant-info h3 {
+            font-size: 15px;
+            font-weight: 750;
+
+            margin: 0;
+        }
+
+        .assistant-info p {
+            font-size: 11px;
+
+            color: #64748b;
+
+            margin: 2px 0 0;
+        }
+
+        .secure-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            color: #64748b;
+
+            font-size: 11px;
+        }
+
+        /* ==============================
+           CHAT BOX
+        ============================== */
+
+        .chat-box {
+            height: 560px;
+
+            overflow-y: auto;
+
+            padding: 28px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #f8fbff,
+                    #f7f9fc
+                );
+        }
+
+        .chat-box::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-box::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chat-box::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 20px;
+        }
+
+        /* ==============================
+           MESSAGE ROWS
+        ============================== */
+
+        .message-row {
+            display: flex;
+            gap: 11px;
+
+            margin-bottom: 24px;
+        }
+
+        .message-row.user-row {
+            justify-content: flex-end;
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+
+            flex-shrink: 0;
+
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 14px;
+        }
+
+        .bot-avatar {
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #4f46e5
+                );
+        }
+
+        .user-avatar {
+            color: #2563eb;
+
+            background: #dbeafe;
+        }
+
+        .message-content {
+            max-width: min(850px, 78%);
+        }
+
+        .message-name {
+            font-size: 11px;
+            color: #64748b;
+
+            margin-bottom: 5px;
+            font-weight: 650;
+        }
+
+        .user-row .message-name {
+            text-align: right;
+        }
+
+        .message-bubble {
+            padding: 14px 17px;
+
+            border-radius: 17px;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+        .bot-bubble {
+            background: white;
+
+            border: 1px solid #e2e8f0;
+
+            color: #334155;
+
+            border-top-left-radius: 5px;
+
+            box-shadow:
+                0 8px 20px rgba(15,23,42,0.04);
+        }
+
+        .user-bubble {
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #4f46e5
+                );
+
+            color: white;
+
+            border-top-right-radius: 5px;
+
+            box-shadow:
+                0 10px 25px rgba(37,99,235,0.18);
+        }
+
+        /* ==============================
+           WELCOME MESSAGE
+        ============================== */
+
+        .welcome-card {
+            background: white;
+
+            border: 1px solid #e2e8f0;
+
+            border-radius: 20px;
+
+            padding: 23px;
+
+            box-shadow:
+                0 10px 30px rgba(15,23,42,0.05);
+        }
+
+        .welcome-card h3 {
+            font-size: 19px;
+
+            margin-bottom: 8px;
+
+            font-weight: 750;
+        }
+
+        .welcome-card p {
+            color: #64748b;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            margin-bottom: 18px;
+        }
+
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+        }
+
+        .suggestion {
+            padding: 8px 12px;
+
+            border-radius: 10px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e2e8f0;
+
+            color: #475569;
+
+            font-size: 11px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .suggestion:hover {
+            color: #2563eb;
+
+            border-color: #bfdbfe;
+
+            background: #eff6ff;
+        }
+
+        /* ==============================
+           AI ANALYSIS CARD
+        ============================== */
+
+        .analysis-card {
+            background: white;
+
+            border: 1px solid #e2e8f0;
+
+            border-radius: 20px;
+
+            padding: 23px;
+
+            box-shadow:
+                0 10px 30px rgba(15,23,42,0.05);
+        }
+
+        .analysis-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            margin-bottom: 20px;
+        }
+
+        .analysis-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 13px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #2563eb;
+
+            background: #eff6ff;
+        }
+
+        .analysis-header h3 {
+            font-size: 17px;
+
+            font-weight: 750;
+
+            margin: 0;
+        }
+
+        .analysis-header p {
+            margin: 2px 0 0;
+
+            color: #94a3b8;
+
+            font-size: 11px;
+        }
+
+        /* ==============================
+           SUMMARY GRID
+        ============================== */
+
+        .summary {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 12px;
+
+            margin-bottom: 23px;
+        }
+
+        .metric {
+            padding: 17px;
+
+            border-radius: 15px;
+
+            background: #f8fafc;
+
+            border: 1px solid #edf2f7;
+        }
+
+        .metric-label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            color: #64748b;
+
+            font-size: 11px;
+
+            font-weight: 650;
+        }
+
+        .metric-value {
+            margin-top: 9px;
+
+            font-size: 21px;
+
+            font-weight: 800;
+        }
+
+        .income-value {
+            color: #16a34a;
+        }
+
+        .expense-value {
+            color: #ef4444;
+        }
+
+        .saving-value {
+            color: #2563eb;
+        }
+
+        .rate-value {
+            color: #7c3aed;
+        }
+
+        /* ==============================
+           SECTION TITLE
+        ============================== */
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            margin: 22px 0 12px;
+
+            font-size: 14px;
+
+            font-weight: 750;
+
+            color: #0f172a;
+        }
+
+        .section-title i {
+            color: #2563eb;
+        }
+
+        /* ==============================
+           PROGRESS
+        ============================== */
+
+        .progress-container {
+            padding: 17px;
+
+            background: #f8fafc;
+
+            border-radius: 15px;
+
+            border: 1px solid #edf2f7;
+        }
+
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+
+            margin-bottom: 10px;
+
+            font-size: 12px;
+
+            color: #64748b;
+        }
+
+        .progress {
+            height: 13px;
+
+            border-radius: 20px;
+
+            background: #e2e8f0;
+
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #16a34a,
+                    #22c55e
+                );
+        }
+
+        /* ==============================
+           CATEGORIES
+        ============================== */
+
+        .category-list {
+            background: #f8fafc;
+
+            border-radius: 15px;
+
+            border: 1px solid #edf2f7;
+
+            overflow: hidden;
+        }
+
+        .category {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 13px 16px;
+
+            border-bottom: 1px solid #e2e8f0;
+
+            font-size: 13px;
+        }
+
+        .category:last-child {
+            border-bottom: none;
+        }
+
+        .category-name {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            color: #475569;
+        }
+
+        .category-icon {
+            width: 29px;
+            height: 29px;
+
+            border-radius: 9px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            font-size: 11px;
+        }
+
+        .category-amount {
+            font-weight: 750;
+
+            color: #0f172a;
+        }
+
+        /* ==============================
+           RECOMMENDATION
+        ============================== */
+
+        .recommendation {
+            padding: 18px;
+
+            border-radius: 16px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eff6ff,
+                    #eef2ff
+                );
+
+            border: 1px solid #dbeafe;
+
+            color: #334155;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            white-space: pre-wrap;
+
+            position: relative;
+        }
+
+        .recommendation::before {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            top: 15px;
+            bottom: 15px;
+
+            width: 4px;
+
+            border-radius: 5px;
+
+            background:
+                linear-gradient(
+                    #2563eb,
+                    #7c3aed
+                );
+        }
+
+        .recommendation-content {
+            padding-left: 12px;
+        }
+
+        /* ==============================
+           INPUT AREA
+        ============================== */
+
+        .input-area {
+            padding: 18px 22px;
+
+            background: white;
+
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .input-wrapper {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 8px;
+
+            border-radius: 16px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e2e8f0;
+
+            transition: 0.25s;
+        }
+
+        .input-wrapper:focus-within {
+            border-color: #93c5fd;
+
+            box-shadow:
+                0 0 0 4px rgba(37,99,235,0.08);
+
+            background: white;
+        }
+
+        #question {
+            flex: 1;
+
+            border: none;
+
+            outline: none;
+
+            background: transparent;
+
+            padding: 12px 13px;
+
+            font-size: 13px;
+
+            color: #0f172a;
+        }
+
+        #question::placeholder {
+            color: #94a3b8;
+        }
+
+        .send-btn {
+            width: 48px;
+            height: 48px;
+
+            border: none;
+
+            border-radius: 13px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #4f46e5
+                );
+
+            box-shadow:
+                0 8px 20px rgba(37,99,235,0.22);
+
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 25px rgba(37,99,235,0.28);
+        }
+
+        .send-btn:active {
+            transform: scale(0.96);
+        }
+
+        .input-hint {
+            text-align: center;
+
+            margin-top: 9px;
+
+            color: #94a3b8;
+
+            font-size: 10px;
+        }
+
+        /* ==============================
+           TYPING INDICATOR
+        ============================== */
+
+        .typing {
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            padding: 14px 17px;
+
+            background: white;
+
+            border: 1px solid #e2e8f0;
+
+            border-radius: 16px;
+
+            border-top-left-radius: 5px;
+
+            width: fit-content;
+        }
+
+        .typing span {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #94a3b8;
+
+            animation: typing 1.2s infinite;
+        }
+
+        .typing span:nth-child(2) {
+            animation-delay: .15s;
+        }
+
+        .typing span:nth-child(3) {
+            animation-delay: .3s;
+        }
+
+        @keyframes typing {
+
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: .5;
+            }
+
+            30% {
+                transform: translateY(-5px);
+                opacity: 1;
+            }
+        }
+
+        /* ==============================
+           ANIMATIONS
+        ============================== */
+
+        .message-row {
+            animation: messageIn .35s ease;
+        }
+
+        @keyframes messageIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        /* ==============================
+           RESPONSIVE
+        ============================== */
+
+        @media(max-width:900px) {
+
+            .summary {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .chat-box {
+                height: 520px;
+            }
+
+        }
+
+        @media(max-width:650px) {
+
+            .topbar {
+                padding: 0 16px;
+            }
+
+            .brand-text span {
+                display: none;
+            }
+
+            .content {
+                width: 96%;
+                padding-top: 25px;
+            }
+
+            .hero h1 {
+                font-size: 27px;
+            }
+
+            .hero-icon {
+                width: 62px;
+                height: 62px;
+                font-size: 25px;
+            }
+
+            .chat-header {
+                padding: 15px;
+            }
+
+            .secure-badge {
+                display: none;
+            }
+
+            .chat-box {
+                height: 500px;
+                padding: 18px;
+            }
+
+            .message-content {
+                max-width: 86%;
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .analysis-card {
+                padding: 17px;
+            }
+
+            .input-area {
+                padding: 13px;
+            }
+
+            .back-btn span {
+                display: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- ==========================
+         TOP BAR
+    =========================== -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                <i class="fa-solid fa-wallet"></i>
+            </div>
+
+            <div class="brand-text">
+
+                <h2>Expense Tracker</h2>
+
+                <span>Personal Finance Management</span>
+
+            </div>
+
+        </div>
+
+        <div class="top-actions">
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="back-btn"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Back to Dashboard</span>
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==========================
+         MAIN CONTENT
+    =========================== -->
+
+    <main class="content">
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-icon">
+
+                <i class="fa-solid fa-robot"></i>
+
+            </div>
+
+            <h1>AI Financial Assistant</h1>
+
+            <p>
+                Your intelligent companion for understanding
+                and improving your financial habits.
+            </p>
+
+            <div class="ai-status">
+
+                <span class="status-dot"></span>
+
+                AI Assistant Online
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================
+             CHAT APPLICATION
+        =========================== -->
+
+        <section class="chat-wrapper">
+
+
+            <!-- CHAT HEADER -->
+
+            <div class="chat-header">
+
+                <div class="assistant-info">
+
+                    <div class="assistant-avatar">
+
+                        <i class="fa-solid fa-sparkles"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Financial AI</h3>
+
+                        <p>
+                            Spending & budget analysis
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="secure-badge">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    Private financial analysis
+
+                </div>
+
+            </div>
+
+
+            <!-- CHAT BOX -->
+
+            <div class="chat-box" id="chatBox">
+
+
+                <!-- WELCOME -->
+
+                <div class="message-row">
+
+                    <div class="message-avatar bot-avatar">
+
+                        <i class="fa-solid fa-robot"></i>
+
+                    </div>
+
+
+                    <div class="message-content">
+
+                        <div class="message-name">
+
+                            AI Financial Assistant
+
+                        </div>
+
+
+                        <div class="welcome-card">
+
+                            <h3>
+                                Hello 👋
+                            </h3>
+
+                            <p>
+
+                                I can help you understand your
+                                spending, income, savings and
+                                budget. Ask me a question and
+                                I'll analyze your financial data.
+
+                            </p>
+
+
+                            <div class="suggestions">
+
+                                <button
+                                    class="suggestion"
+                                    onclick="useSuggestion('Analyze my expenses')"
+                                >
+                                    📊 Analyze my expenses
+                                </button>
+
+                                <button
+                                    class="suggestion"
+                                    onclick="useSuggestion('Where am I spending the most?')"
+                                >
+                                    💸 Where am I spending the most?
+                                </button>
+
+                                <button
+                                    class="suggestion"
+                                    onclick="useSuggestion('How much am I saving?')"
+                                >
+                                    💰 How much am I saving?
+                                </button>
+
+                                <button
+                                    class="suggestion"
+                                    onclick="useSuggestion('Give me financial advice')"
+                                >
+                                    💡 Give me financial advice
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==========================
+                 INPUT
+            =========================== -->
+
+            <div class="input-area">
+
+                <div class="input-wrapper">
+
+                    <input
+                        type="text"
+                        id="question"
+                        placeholder="Ask about your income, expenses, budget..."
+                        autocomplete="off"
+                    >
+
+                    <button
+                        class="send-btn"
+                        id="sendButton"
+                        onclick="sendMessage()"
+                    >
+
+                        <i class="fa-solid fa-paper-plane"></i>
+
+                    </button>
+
+                </div>
+
+                <div class="input-hint">
+
+                    AI-generated insights are based on your
+                    Expense Tracker data.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    /* ======================================
+       USE SUGGESTION
+    ====================================== */
+
+    function useSuggestion(text) {
+
+        document.getElementById("question").value = text;
+
+        document.getElementById("question").focus();
+
+    }
+
+
+    /* ======================================
+       ESCAPE HTML
+    ====================================== */
+
+    function escapeHTML(value) {
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* ======================================
+       SEND MESSAGE
+    ====================================== */
+
+    async function sendMessage() {
+
+        const input =
+            document.getElementById("question");
+
+        const chat =
+            document.getElementById("chatBox");
+
+        const button =
+            document.getElementById("sendButton");
+
+        const question =
+            input.value.trim();
+
+
+        if (!question) {
+
+            input.focus();
+
+            return;
+
+        }
+
+
+        /* USER MESSAGE */
+
+        chat.innerHTML += `
+
+            <div class="message-row user-row">
+
+                <div class="message-content">
+
+                    <div class="message-name">
+                        You
+                    </div>
+
+                    <div class="message-bubble user-bubble">
+
+                        ${escapeHTML(question)}
+
+                    </div>
+
+                </div>
+
+                <div class="message-avatar user-avatar">
+
+                    <i class="fa-solid fa-user"></i>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        input.value = "";
+
+        button.disabled = true;
+
+        button.style.opacity = "0.6";
+
+
+        chat.scrollTop =
+            chat.scrollHeight;
+
+
+        /* TYPING INDICATOR */
+
+        const typingId =
+            "typing-" + Date.now();
+
+
+        chat.innerHTML += `
+
+            <div
+                class="message-row"
+                id="${typingId}"
+            >
+
+                <div class="message-avatar bot-avatar">
+
+                    <i class="fa-solid fa-robot"></i>
+
+                </div>
+
+                <div class="message-content">
+
+                    <div class="message-name">
+                        Financial AI
+                    </div>
+
+                    <div class="typing">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        chat.scrollTop =
+            chat.scrollHeight;
+
+
+        try {
+
+
+            /* ==================================
+               EXISTING BACKEND REQUEST
+            ================================== */
+
+            const response =
+                await fetch("/ask-ai", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        question: question
+                    })
+
+                });
+
+
+            const data =
+                await response.json();
+
+
+            /* REMOVE TYPING */
+
+            const typingElement =
+                document.getElementById(typingId);
+
+            if (typingElement) {
+
+                typingElement.remove();
+
+            }
+
+
+            console.log(
+                "AI Response:",
+                data
+            );
+
+
+            /* ==================================
+               CATEGORY LIST
+            ================================== */
+
+            let categoryHTML = "";
+
+
+            if (
+                data.categories &&
+                Object.keys(data.categories).length
+            ) {
+
+                for (
+                    let key in data.categories
+                ) {
+
+                    categoryHTML += `
+
+                        <div class="category">
+
+                            <div class="category-name">
+
+                                <div class="category-icon">
+
+                                    <i class="fa-solid fa-wallet"></i>
+
+                                </div>
+
+                                <span>
+                                    ${escapeHTML(key)}
+                                </span>
+
+                            </div>
+
+                            <span class="category-amount">
+
+                                ₹${data.categories[key]}
+
+                            </span>
+
+                        </div>
+
+                    `;
+
+                }
+
+            } else {
+
+                categoryHTML = `
+
+                    <div class="category">
+
+                        <span
+                            class="category-name"
+                        >
+
+                            No category data available.
+
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            /* ==================================
+               SAFE RATE
+            ================================== */
+
+            const rate =
+                Number(data.rate) || 0;
+
+            const progress =
+                Math.min(
+                    Math.max(rate, 0),
+                    100
+                );
+
+
+            /* ==================================
+               AI ANALYSIS CARD
+            ================================== */
+
+            chat.innerHTML += `
+
+                <div class="message-row">
+
+                    <div class="message-avatar bot-avatar">
+
+                        <i class="fa-solid fa-robot"></i>
+
+                    </div>
+
+
+                    <div class="message-content">
+
+                        <div class="message-name">
+
+                            Financial AI
+
+                        </div>
+
+
+                        <div class="analysis-card">
+
+
+                            <div class="analysis-header">
+
+                                <div class="analysis-icon">
+
+                                    <i class="fa-solid fa-chart-line"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h3>
+                                        Financial Analysis
+                                    </h3>
+
+                                    <p>
+                                        Based on your current
+                                        transaction data
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- METRICS -->
+
+                            <div class="summary">
+
+
+                                <div class="metric">
+
+                                    <div class="metric-label">
+
+                                        <i class="fa-solid fa-arrow-trend-up"></i>
+
+                                        Total Income
+
+                                    </div>
+
+                                    <div
+                                        class="metric-value income-value"
+                                    >
+
+                                        ₹${data.income}
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="metric">
+
+                                    <div class="metric-label">
+
+                                        <i class="fa-solid fa-arrow-trend-down"></i>
+
+                                        Total Expense
+
+                                    </div>
+
+                                    <div
+                                        class="metric-value expense-value"
+                                    >
+
+                                        ₹${data.expense}
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="metric">
+
+                                    <div class="metric-label">
+
+                                        <i class="fa-solid fa-piggy-bank"></i>
+
+                                        Current Savings
+
+                                    </div>
+
+                                    <div
+                                        class="metric-value saving-value"
+                                    >
+
+                                        ₹${data.savings}
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="metric">
+
+                                    <div class="metric-label">
+
+                                        <i class="fa-solid fa-percent"></i>
+
+                                        Savings Rate
+
+                                    </div>
+
+                                    <div
+                                        class="metric-value rate-value"
+                                    >
+
+                                        ${rate}%
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <!-- SAVINGS PROGRESS -->
+
+                            <div class="section-title">
+
+                                <i class="fa-solid fa-chart-simple"></i>
+
+                                Savings Progress
+
+                            </div>
+
+
+                            <div class="progress-container">
+
+                                <div class="progress-top">
+
+                                    <span>
+                                        Savings rate
+                                    </span>
+
+                                    <strong>
+                                        ${rate}%
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="progress">
+
+                                    <div
+                                        class="progress-bar"
+                                        style="width:${progress}%"
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- CATEGORY -->
+
+                            <div class="section-title">
+
+                                <i class="fa-solid fa-chart-pie"></i>
+
+                                Spending Summary
+
+                            </div>
+
+
+                            <div class="category-list">
+
+                                ${categoryHTML}
+
+                            </div>
+
+
+                            <!-- RECOMMENDATION -->
+
+                            <div class="section-title">
+
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                                AI Recommendation
+
+                            </div>
+
+
+                            <div class="recommendation">
+
+                                <div class="recommendation-content">
+
+                                    ${escapeHTML(
+                                        data.recommendation ||
+                                        "No recommendation available."
+                                    )}
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+        } catch (error) {
+
+
+            console.error(
+                "AI Error:",
+                error
+            );
+
+
+            const typingElement =
+                document.getElementById(typingId);
+
+            if (typingElement) {
+
+                typingElement.remove();
+
+            }
+
+
+            chat.innerHTML += `
+
+                <div class="message-row">
+
+                    <div class="message-avatar bot-avatar">
+
+                        <i class="fa-solid fa-robot"></i>
+
+                    </div>
+
+
+                    <div class="message-content">
+
+                        <div class="message-name">
+                            Financial AI
+                        </div>
+
+                        <div class="message-bubble bot-bubble">
+
+                            <strong>
+                                Unable to analyze your data.
+                            </strong>
+
+                            <br>
+
+                            Please try again in a moment.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        button.disabled = false;
+
+        button.style.opacity = "1";
+
+
+        chat.scrollTop =
+            chat.scrollHeight;
+
+        input.focus();
+
+    }
+
+
+    /* ======================================
+       ENTER TO SEND
+    ====================================== */
+
+    document
+        .getElementById("question")
+        .addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key === "Enter" &&
+                    !event.shiftKey
+                ) {
+
+                    event.preventDefault();
+
+                    sendMessage();
+
+                }
+
+            }
+        );
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Transaction History</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+background:linear-gradient(135deg,#edf4ff,#f8fbff,#eef6ff);
+
+min-height:100vh;
+
+overflow-x:hidden;
+
+}
+
+/* Animated Background */
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+top:-250px;
+
+left:-250px;
+
+width:600px;
+
+height:600px;
+
+background:#3b82f6;
+
+opacity:.08;
+
+border-radius:50%;
+
+filter:blur(120px);
+
+animation:move1 15s infinite alternate;
+
+z-index:-1;
+
+}
+
+body::after{
+
+content:"";
+
+position:fixed;
+
+bottom:-250px;
+
+right:-250px;
+
+width:650px;
+
+height:650px;
+
+background:#22c55e;
+
+opacity:.08;
+
+border-radius:50%;
+
+filter:blur(130px);
+
+animation:move2 15s infinite alternate;
+
+z-index:-1;
+
+}
+
+@keyframes move1{
+
+0%{transform:translate(0,0);}
+
+100%{transform:translate(120px,80px);}
+
+}
+
+@keyframes move2{
+
+0%{transform:translate(0,0);}
+
+100%{transform:translate(-120px,-80px);}
+
+}
+
+.container{
+
+width:95%;
+
+max-width:1500px;
+
+margin:auto;
+
+padding:40px;
+
+}
+
+/* ==========================
+HEADER
+========================== */
+
+.header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:35px;
+
+}
+
+.heading h1{
+
+font-size:44px;
+
+font-weight:700;
+
+background:linear-gradient(90deg,#2563eb,#4f46e5);
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+}
+
+.heading p{
+
+margin-top:8px;
+
+color:#64748b;
+
+font-size:16px;
+
+}
+
+/* Buttons */
+
+.header-buttons{
+
+display:flex;
+
+gap:15px;
+
+}
+
+.btn{
+
+padding:15px 28px;
+
+border-radius:50px;
+
+color:white;
+
+font-weight:600;
+
+text-decoration:none;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+transition:.35s;
+
+box-shadow:0 15px 35px rgba(0,0,0,.18);
+
+}
+
+.btn:hover{
+
+transform:translateY(-5px);
+
+}
+
+.income-btn{
+
+background:linear-gradient(135deg,#16a34a,#22c55e);
+
+}
+
+.expense-btn{
+
+background:linear-gradient(135deg,#ef4444,#f97316);
+
+}
+
+/* ==========================
+SUMMARY
+========================== */
+
+.summary{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:25px;
+
+margin-bottom:35px;
+
+}
+
+.summary-card{
+
+background:rgba(255,255,255,.85);
+
+backdrop-filter:blur(18px);
+
+border-radius:25px;
+
+padding:25px;
+
+display:flex;
+
+align-items:center;
+
+gap:18px;
+
+box-shadow:0 20px 40px rgba(0,0,0,.08);
+
+transition:.35s;
+
+border:1px solid rgba(255,255,255,.4);
+
+}
+
+.summary-card:hover{
+
+transform:translateY(-8px);
+
+}
+
+.summary-icon{
+
+width:70px;
+
+height:70px;
+
+border-radius:20px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:28px;
+
+color:white;
+
+}
+
+.blue{
+
+background:linear-gradient(135deg,#2563eb,#4f46e5);
+
+}
+
+.green{
+
+background:linear-gradient(135deg,#16a34a,#22c55e);
+
+}
+
+.red{
+
+background:linear-gradient(135deg,#ef4444,#f97316);
+
+}
+
+.purple{
+
+background:linear-gradient(135deg,#7c3aed,#9333ea);
+
+}
+
+.summary-text h5{
+
+color:#64748b;
+
+font-size:15px;
+
+margin-bottom:8px;
+
+font-weight:500;
+
+}
+
+.summary-text h2{
+
+font-size:30px;
+
+font-weight:700;
+
+color:#0f172a;
+
+}
+
+/* ==========================
+SEARCH
+========================== */
+
+.search-area{
+
+background:rgba(255,255,255,.9);
+
+padding:22px;
+
+border-radius:22px;
+
+display:flex;
+
+gap:15px;
+
+align-items:center;
+
+box-shadow:0 15px 35px rgba(0,0,0,.08);
+
+margin-bottom:35px;
+
+}
+
+.search-area input{
+
+flex:1;
+
+padding:18px 20px;
+
+border:none;
+
+background:#f1f5f9;
+
+border-radius:15px;
+
+font-size:15px;
+
+outline:none;
+
+transition:.3s;
+
+}
+
+.search-area input:focus{
+
+background:white;
+
+box-shadow:0 0 0 3px rgba(37,99,235,.15);
+
+}
+
+.search-btn{
+
+padding:18px 30px;
+
+border:none;
+
+border-radius:15px;
+
+background:linear-gradient(135deg,#2563eb,#4f46e5);
+
+color:white;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.search-btn:hover{
+
+transform:translateY(-3px);
+
+}
+
+/* Transaction container starts here */
+
+.transactions{
+
+display:flex;
+
+flex-direction:column;
+
+gap:25px;
+
+}/* ==========================
+TRANSACTION CARD
+========================== */
+
+.transaction-card{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+background:rgba(255,255,255,.88);
+
+backdrop-filter:blur(18px);
+
+border-radius:24px;
+
+padding:24px;
+
+box-shadow:0 18px 40px rgba(0,0,0,.08);
+
+transition:.35s;
+
+border:1px solid rgba(255,255,255,.4);
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.transaction-card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:0 25px 55px rgba(37,99,235,.18);
+
+}
+
+.transaction-card::before{
+
+content:"";
+
+position:absolute;
+
+left:0;
+
+top:0;
+
+width:6px;
+
+height:100%;
+
+background:#2563eb;
+
+}
+
+.left{
+
+display:flex;
+
+align-items:center;
+
+gap:20px;
+
+}
+
+.transaction-icon{
+
+width:70px;
+
+height:70px;
+
+border-radius:20px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:28px;
+
+color:white;
+
+flex-shrink:0;
+
+}
+
+.icon-income{
+
+background:linear-gradient(135deg,#16a34a,#22c55e);
+
+}
+
+.icon-expense{
+
+background:linear-gradient(135deg,#ef4444,#f97316);
+
+}
+
+.details h2{
+
+font-size:23px;
+
+font-weight:700;
+
+color:#0f172a;
+
+margin-bottom:10px;
+
+}
+
+.meta{
+
+display:flex;
+
+gap:18px;
+
+flex-wrap:wrap;
+
+margin-bottom:10px;
+
+}
+
+.meta span{
+
+display:flex;
+
+align-items:center;
+
+gap:6px;
+
+font-size:14px;
+
+color:#64748b;
+
+}
+
+.notes{
+
+font-size:14px;
+
+color:#64748b;
+
+line-height:1.7;
+
+max-width:600px;
+
+}
+
+.right{
+
+text-align:right;
+
+}
+
+.amount-income{
+
+font-size:30px;
+
+font-weight:700;
+
+color:#16a34a;
+
+}
+
+.amount-expense{
+
+font-size:30px;
+
+font-weight:700;
+
+color:#ef4444;
+
+}
+
+.action-buttons{
+
+margin-top:18px;
+
+display:flex;
+
+justify-content:flex-end;
+
+gap:12px;
+
+}
+
+.action-buttons a{
+
+width:45px;
+
+height:45px;
+
+border-radius:50%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+text-decoration:none;
+
+background:#eef2ff;
+
+color:#475569;
+
+transition:.3s;
+
+font-size:17px;
+
+}
+
+.action-buttons a:hover{
+
+background:#2563eb;
+
+color:white;
+
+transform:scale(1.12);
+
+}
+
+/* ==========================
+EMPTY STATE
+========================== */
+
+.empty{
+
+background:rgba(255,255,255,.9);
+
+padding:70px;
+
+text-align:center;
+
+border-radius:30px;
+
+box-shadow:0 20px 45px rgba(0,0,0,.08);
+
+}
+
+.empty i{
+
+font-size:70px;
+
+color:#2563eb;
+
+margin-bottom:20px;
+
+}
+
+.empty h2{
+
+font-size:34px;
+
+margin-bottom:12px;
+
+color:#0f172a;
+
+}
+
+.empty p{
+
+font-size:16px;
+
+color:#64748b;
+
+margin-bottom:30px;
+
+}
+
+@media(max-width:900px){
+
+.summary{
+
+grid-template-columns:1fr 1fr;
+
+}
+
+.header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:20px;
+
+}
+
+.transaction-card{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.right{
+
+margin-top:20px;
+
+width:100%;
+
+text-align:left;
+
+}
+
+.action-buttons{
+
+justify-content:flex-start;
+
+}
+
+.search-area{
+
+flex-direction:column;
+
+}
+
+.search-area input,
+
+.search-btn{
+
+width:100%;
+
+}
+
+}
+
+@media(max-width:650px){
+
+.summary{
+
+grid-template-columns:1fr;
+
+}
+
+.container{
+
+padding:20px;
+
+}
+
+.heading h1{
+
+font-size:32px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<div class="heading">
+
+<h1>Transaction History</h1>
+
+<p>Track every income and expense beautifully.</p>
+
+</div>
+
+<div class="header-buttons">
+
+<a href="{{ url_for('add_income') }}" class="btn income-btn">
+
+<i class="fa-solid fa-plus"></i>
+
+Add Income
+
+</a>
+
+<a href="{{ url_for('add_expense') }}" class="btn expense-btn">
+
+<i class="fa-solid fa-minus"></i>
+
+Add Expense
+
+</a>
+
+</div>
+
+</div>
+
+<div class="summary">
+
+<div class="summary-card">
+
+<div class="summary-icon blue">
+
+<i class="fa-solid fa-wallet"></i>
+
+</div>
+
+<div class="summary-text">
+
+<h5>Total Transactions</h5>
+
+<h2>{{ transactions|length }}</h2>
+
+</div>
+
+</div>
+
+<div class="summary-card">
+
+<div class="summary-icon green">
+
+<i class="fa-solid fa-arrow-trend-up"></i>
+
+</div>
+
+<div class="summary-text">
+
+<h5>Total Income</h5>
+
+<h2>
+
+₹{{ "%.2f"|format(transactions|selectattr('type','equalto','Income')|map(attribute='amount')|sum) }}
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="summary-card">
+
+<div class="summary-icon red">
+
+<i class="fa-solid fa-arrow-trend-down"></i>
+
+</div>
+
+<div class="summary-text">
+
+<h5>Total Expense</h5>
+
+<h2>
+
+₹{{ "%.2f"|format(transactions|selectattr('type','equalto','Expense')|map(attribute='amount')|sum) }}
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="summary-card">
+
+<div class="summary-icon purple">
+
+<i class="fa-solid fa-scale-balanced"></i>
+
+</div>
+
+<div class="summary-text">
+
+<h5>Balance</h5>
+
+<h2>
+
+₹{{ "%.2f"|format(
+(transactions|selectattr('type','equalto','Income')|map(attribute='amount')|sum)
+-
+(transactions|selectattr('type','equalto','Expense')|map(attribute='amount')|sum)
+) }}
+
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<form method="GET">
+
+<div class="search-area">
+
+<input
+type="text"
+name="search"
+placeholder="Search transaction..."
+value="{{ request.args.get('search','') }}">
+
+<button class="search-btn">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+Search
+
+</button>
+
+</div>
+
+</form>
+
+<div class="transactions">
+
+{% if transactions %}
+{% for transaction in transactions %}
+
+<div class="transaction-card">
+
+    <div class="left">
+
+        {% if transaction.type=="Income" %}
+
+        <div class="transaction-icon icon-income">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+        </div>
+
+        {% else %}
+
+        <div class="transaction-icon icon-expense">
+            <i class="fa-solid fa-arrow-trend-down"></i>
+        </div>
+
+        {% endif %}
+
+        <div class="details">
+
+            <h2>{{ transaction.title }}</h2>
+
+            <div class="meta">
+
+                <span>
+                    <i class="fa-solid fa-layer-group"></i>
+                    {{ transaction.category }}
+                </span>
+
+                <span>
+                    <i class="fa-solid fa-calendar-days"></i>
+                    {{ transaction.date.strftime("%d %b %Y") }}
+                </span>
+
+                <span>
+                    <i class="fa-solid fa-clock"></i>
+                    {{ transaction.date.strftime("%I:%M %p") }}
+                </span>
+
+            </div>
+
+            {% if transaction.notes %}
+
+            <div class="notes">
+
+                <i class="fa-solid fa-note-sticky"></i>
+
+                {{ transaction.notes }}
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <div class="right">
+
+        {% if transaction.type=="Income" %}
+
+        <div class="amount-income">
+
+            + ₹{{ "%.2f"|format(transaction.amount) }}
+
+        </div>
+
+        {% else %}
+
+        <div class="amount-expense">
+
+            − ₹{{ "%.2f"|format(transaction.amount) }}
+
+        </div>
+
+        {% endif %}
+
+        <div class="action-buttons">
+
+            <a href="{{ url_for('edit_transaction', id=transaction.id) }}">
+
+                <i class="fa-solid fa-pen"></i>
+
+            </a>
+
+            <a href="{{ url_for('delete_transaction', id=transaction.id) }}"
+
+               onclick="return confirm('Are you sure you want to delete this transaction?')">
+
+                <i class="fa-solid fa-trash"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+{% else %}
+
+<div class="empty">
+
+    <i class="fa-solid fa-wallet"></i>
+
+    <h2>No Transactions Found</h2>
+
+    <p>
+        You haven't added any transactions yet.
+        Start tracking your finances by adding your first income or expense.
+    </p>
+
+    <div class="header-buttons">
+
+        <a href="{{ url_for('add_income') }}" class="btn income-btn">
+
+            <i class="fa-solid fa-plus"></i>
+
+            Add Income
+
+        </a>
+
+        <a href="{{ url_for('add_expense') }}" class="btn expense-btn">
+
+            <i class="fa-solid fa-minus"></i>
+
+            Add Expense
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+<script>
+
+// Card Animation
+
+const cards=document.querySelectorAll(".transaction-card");
+
+cards.forEach((card,index)=>{
+
+card.style.opacity="0";
+
+card.style.transform="translateY(40px)";
+
+setTimeout(()=>{
+
+card.style.transition=".6s";
+
+card.style.opacity="1";
+
+card.style.transform="translateY(0px)";
+
+},index*120);
+
+});
+
+// Search Animation
+
+const input=document.querySelector("input[name='search']");
+
+if(input){
+
+input.addEventListener("focus",()=>{
+
+input.style.transform="scale(1.02)";
+
+});
+
+input.addEventListener("blur",()=>{
+
+input.style.transform="scale(1)";
+
+});
+
+}
+
+// Delete Animation
+
+document.querySelectorAll(".fa-trash").forEach(btn=>{
+
+btn.parentElement.addEventListener("click",function(e){
+
+if(!confirm("Delete this transaction permanently?")){
+
+e.preventDefault();
+
+}
+
+});
+
+});
+
+</script>
+
+</body>
+
+</html>

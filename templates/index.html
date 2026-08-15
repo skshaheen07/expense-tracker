@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Expense Tracker</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Landing CSS -->
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/landing.css') }}">
+
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="bg-circle one"></div>
+    <div class="bg-circle two"></div>
+    <div class="bg-circle three"></div>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav>
+
+        <div class="logo">
+
+            💰 Expense Tracker
+
+        </div>
+
+        <div class="nav-buttons">
+
+            <a href="{{ url_for('login') }}">
+                Login
+            </a>
+
+            <a href="{{ url_for('register') }}"
+                class="register-nav">
+
+                Register
+
+            </a>
+
+        </div>
+
+    </nav>
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <!-- Left Side -->
+
+        <div class="hero-left">
+
+            <div class="badge">
+
+                ✨ Smart AI Financial Assistant
+
+            </div>
+
+            <h1>
+
+                Manage Your
+                <span>Money</span>
+                Smarter
+
+            </h1>
+
+            <p>
+
+                Track expenses, create budgets, monitor savings,
+                analyse spending habits and get AI-powered financial
+                insights in one beautiful dashboard.
+
+            </p>
+
+            <!-- Buttons -->
+
+            <div class="hero-buttons">
+
+                <a href="{{ url_for('register') }}"
+                    class="primary-btn">
+
+                    <i class="bi bi-person-plus-fill"></i>
+
+                    Get Started
+
+                </a>
+
+                <a href="{{ url_for('login') }}"
+                    class="secondary-btn">
+
+                    <i class="bi bi-box-arrow-in-right"></i>
+
+                    Login
+
+                </a>
+
+            </div>
+
+            <!-- Feature Cards -->
+
+            <div class="features">
+
+                <div class="feature-card">
+
+                    <i class="bi bi-robot"></i>
+
+                    <div>
+
+                        <h4>AI Powered</h4>
+
+                        <p>Smart insights</p>
+
+                    </div>
+
+                </div>
+
+                <div class="feature-card">
+
+                    <i class="bi bi-bar-chart-fill"></i>
+
+                    <div>
+
+                        <h4>Analytics</h4>
+
+                        <p>Expense reports</p>
+
+                    </div>
+
+                </div>
+
+                <div class="feature-card">
+
+                    <i class="bi bi-wallet2"></i>
+
+                    <div>
+
+                        <h4>Budget Planner</h4>
+
+                        <p>Monthly goals</p>
+
+                    </div>
+
+                </div>
+
+                <div class="feature-card">
+
+                    <i class="bi bi-shield-lock-fill"></i>
+
+                    <div>
+
+                        <h4>Secure</h4>
+
+                        <p>Encrypted data</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Right Side -->
+
+        <div class="hero-right">
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <h2>
+
+                        Expense Tracker
+
+                    </h2>
+
+                    <p>
+
+                        AI Financial Assistant
+
+                    </p>
+
+                </div>
+
+                <!-- Stats -->
+
+                <div class="stats">
+
+                    <div class="stat-box">
+
+                        <small>Income</small>
+
+                        <h3>₹50,000</h3>
+
+                    </div>
+
+                    <div class="stat-box">
+
+                        <small>Expense</small>
+
+                        <h3>₹24,500</h3>
+
+                    </div>
+
+                </div>
+
+                <!-- Budget -->
+
+                <div class="budget-section">
+
+                    <div class="budget-title">
+
+                        <span>Budget Used</span>
+
+                        <span>72%</span>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div class="progress-bar"></div>
+
+                    </div>
+
+                </div>
+
+                <!-- Balance -->
+
+                <div class="balance-card">
+
+                    <small>
+
+                        Current Balance
+
+                    </small>
+
+                    <h1>
+
+                        ₹25,500
+
+                    </h1>
+
+                </div>
+
+                <!-- Recent -->
+
+                <div class="transactions">
+
+                    <h4>
+
+                        Recent Transactions
+
+                    </h4>
+
+                    <ul>
+
+                        <li>
+
+                            <span>🍔 Food</span>
+
+                            <span class="expense">
+
+                                - ₹250
+
+                            </span>
+
+                        </li>
+
+                        <li>
+
+                            <span>💼 Salary</span>
+
+                            <span class="income">
+
+                                + ₹50,000
+
+                            </span>
+
+                        </li>
+
+                        <li>
+
+                            <span>🛒 Shopping</span>
+
+                            <span class="expense">
+
+                                - ₹800
+
+                            </span>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</body>
+
+</html>

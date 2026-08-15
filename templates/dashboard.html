@@ -1,0 +1,2124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Expense Tracker Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/sidebar.css') }}">
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    min-height:100vh;
+
+    background:
+    radial-gradient(circle at top left,#dbeafe 0%,transparent 32%),
+    radial-gradient(circle at bottom right,#ede9fe 0%,transparent 32%),
+    linear-gradient(135deg,#f4f8ff,#f8fbff,#eef5ff);
+
+    color:#0f172a;
+
+    overflow-x:hidden;
+}
+
+/* Decorative background */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    width:420px;
+    height:420px;
+
+    top:-180px;
+    left:-150px;
+
+    background:#2563eb18;
+
+    border-radius:50%;
+
+    filter:blur(70px);
+
+    z-index:-1;
+}
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    width:400px;
+    height:400px;
+
+    right:-160px;
+    bottom:-160px;
+
+    background:#7c3aed18;
+
+    border-radius:50%;
+
+    filter:blur(80px);
+
+    z-index:-1;
+}
+
+.main-content{
+
+    min-height:100vh;
+
+}
+
+/* =========================================================
+   TOP NAVBAR
+========================================================= */
+
+.top-navbar{
+
+    background:rgba(255,255,255,.88);
+
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid #e2e8f0;
+
+    padding:18px 30px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+}
+
+.brand{
+
+    font-size:25px;
+
+    font-weight:800;
+
+    color:#0f172a;
+
+    text-decoration:none;
+
+}
+
+.brand span{
+
+    color:#2563eb;
+
+}
+
+.welcome-text{
+
+    color:#64748b;
+
+    font-size:14px;
+
+}
+
+.welcome-text strong{
+
+    color:#0f172a;
+
+}
+
+.nav-action{
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:10px 18px;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+.profile-btn{
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+}
+
+.logout-btn{
+
+    background:#0f172a;
+
+    color:white;
+
+}
+
+.nav-action:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/* =========================================================
+   PAGE CONTAINER
+========================================================= */
+
+.dashboard-container{
+
+    max-width:1450px;
+
+    margin:auto;
+
+    padding:35px;
+
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+    linear-gradient(135deg,#1d4ed8,#2563eb,#4f46e5);
+
+    border-radius:28px;
+
+    padding:45px;
+
+    color:white;
+
+    box-shadow:
+    0 20px 45px rgba(37,99,235,.22);
+
+    margin-bottom:35px;
+
+}
+
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+    height:300px;
+
+    right:-100px;
+    top:-130px;
+
+    background:rgba(255,255,255,.12);
+
+    border-radius:50%;
+}
+
+.hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    right:180px;
+    bottom:-100px;
+
+    background:rgba(255,255,255,.08);
+
+    border-radius:50%;
+}
+
+.hero-content{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.hero h1{
+
+    font-size:42px;
+
+    font-weight:800;
+
+    margin-bottom:12px;
+
+}
+
+.hero p{
+
+    font-size:16px;
+
+    line-height:1.8;
+
+    max-width:720px;
+
+    color:#dbeafe;
+
+}
+
+.health-card{
+
+    position:relative;
+
+    z-index:2;
+
+    background:rgba(255,255,255,.15);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    border-radius:22px;
+
+    padding:25px;
+
+    text-align:center;
+
+}
+
+.health-icon{
+
+    width:60px;
+    height:60px;
+
+    margin:0 auto 12px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.18);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:25px;
+
+}
+
+.health-card h5{
+
+    font-size:14px;
+
+    color:#dbeafe;
+
+}
+
+.health-card h2{
+
+    font-size:42px;
+
+    font-weight:800;
+
+    margin:5px 0;
+
+}
+
+.health-card p{
+
+    margin:0;
+
+    font-size:13px;
+
+}
+
+/* =========================================================
+   ALERTS
+========================================================= */
+
+.alert{
+
+    border:none;
+
+    border-radius:14px;
+
+    padding:15px 20px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+
+}
+
+/* =========================================================
+   SECTION TITLES
+========================================================= */
+
+.section-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    font-size:27px;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+    margin-bottom:22px;
+
+}
+
+.section-title i{
+
+    color:#2563eb;
+
+}
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.summary-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:22px;
+
+    margin-bottom:35px;
+
+}
+
+.summary-card{
+
+    background:rgba(255,255,255,.92);
+
+    border:1px solid #e8eef8;
+
+    border-radius:23px;
+
+    padding:28px;
+
+    box-shadow:
+    0 15px 35px rgba(15,23,42,.07);
+
+    transition:.35s;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.summary-card:hover{
+
+    transform:translateY(-7px);
+
+    box-shadow:
+    0 22px 45px rgba(37,99,235,.14);
+
+}
+
+.summary-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    right:-35px;
+    top:-35px;
+
+    border-radius:50%;
+
+    background:#2563eb08;
+
+}
+
+.summary-icon{
+
+    width:62px;
+    height:62px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:white;
+
+    font-size:25px;
+
+    margin-bottom:20px;
+
+}
+
+.icon-income{
+
+    background:
+    linear-gradient(135deg,#16a34a,#22c55e);
+
+}
+
+.icon-expense{
+
+    background:
+    linear-gradient(135deg,#dc2626,#ef4444);
+
+}
+
+.icon-balance{
+
+    background:
+    linear-gradient(135deg,#2563eb,#4f46e5);
+
+}
+
+.icon-saving{
+
+    background:
+    linear-gradient(135deg,#d97706,#f59e0b);
+
+}
+
+.summary-label{
+
+    color:#64748b;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    margin-bottom:7px;
+
+}
+
+.summary-value{
+
+    font-size:30px;
+
+    font-weight:800;
+
+    color:#0f172a;
+
+}
+
+/* =========================================================
+   GENERAL CARD
+========================================================= */
+
+.dashboard-card{
+
+    background:rgba(255,255,255,.92);
+
+    border:1px solid #e8eef8;
+
+    border-radius:24px;
+
+    box-shadow:
+    0 15px 35px rgba(15,23,42,.07);
+
+}
+
+.card-header-custom{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:25px 28px 0;
+
+}
+
+.card-header-custom h3{
+
+    font-size:22px;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+.card-header-custom p{
+
+    color:#64748b;
+
+    font-size:13px;
+
+    margin-top:4px;
+
+}
+
+/* =========================================================
+   AI ASSISTANT
+========================================================= */
+
+.ai-card{
+
+    background:
+    linear-gradient(135deg,#ffffff,#f8fbff);
+
+    border:1px solid #dbeafe;
+
+    border-radius:26px;
+
+    padding:38px;
+
+    box-shadow:
+    0 18px 40px rgba(37,99,235,.10);
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.ai-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+    height:250px;
+
+    right:-90px;
+    top:-90px;
+
+    background:#dbeafe;
+
+    border-radius:50%;
+
+    opacity:.5;
+
+}
+
+.ai-content{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.ai-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    padding:8px 15px;
+
+    border-radius:30px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+.ai-card h2{
+
+    font-size:30px;
+
+    font-weight:800;
+
+    margin-top:15px;
+
+}
+
+.ai-card p{
+
+    color:#64748b;
+
+    line-height:1.8;
+
+}
+
+.ai-features{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+
+    margin:22px 0;
+
+}
+
+.ai-feature{
+
+    color:#475569;
+
+    font-size:14px;
+
+}
+
+.ai-feature i{
+
+    color:#16a34a;
+
+    margin-right:7px;
+
+}
+
+.ai-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:13px 22px;
+
+    border-radius:13px;
+
+    background:
+    linear-gradient(135deg,#2563eb,#4f46e5);
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.ai-btn:hover{
+
+    color:white;
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 12px 25px rgba(37,99,235,.25);
+
+}
+
+.ai-image{
+
+    width:210px;
+
+    max-width:100%;
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+/* =========================================================
+   BUDGET
+========================================================= */
+
+.budget-card{
+
+    padding:28px;
+
+    margin-bottom:35px;
+
+}
+
+.budget-stats{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:20px;
+
+}
+
+.budget-stat{
+
+    background:#f8fbff;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    text-align:center;
+
+}
+
+.budget-stat h6{
+
+    color:#64748b;
+
+    font-size:13px;
+
+    margin-bottom:8px;
+
+}
+
+.budget-stat h3{
+
+    font-size:25px;
+
+    font-weight:800;
+
+}
+
+.budget-progress{
+
+    margin-top:25px;
+
+}
+
+.budget-progress-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:10px;
+
+    font-weight:600;
+
+    color:#475569;
+
+}
+
+.progress{
+
+    height:18px;
+
+    border-radius:50px;
+
+    background:#e2e8f0;
+
+    overflow:hidden;
+
+}
+
+.progress-bar{
+
+    border-radius:50px;
+
+    transition:width .8s ease;
+
+}
+
+/* =========================================================
+   QUICK ACTIONS
+========================================================= */
+
+.quick-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:22px;
+
+    margin-bottom:35px;
+
+}
+
+.quick-card{
+
+    display:block;
+
+    background:rgba(255,255,255,.92);
+
+    border:1px solid #e8eef8;
+
+    border-radius:22px;
+
+    padding:28px;
+
+    text-align:center;
+
+    text-decoration:none;
+
+    color:#0f172a;
+
+    box-shadow:
+    0 12px 30px rgba(15,23,42,.06);
+
+    transition:.35s;
+
+}
+
+.quick-card:hover{
+
+    transform:translateY(-7px);
+
+    color:#2563eb;
+
+    box-shadow:
+    0 20px 40px rgba(37,99,235,.12);
+
+}
+
+.quick-icon{
+
+    width:68px;
+    height:68px;
+
+    border-radius:19px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:27px;
+
+    margin:0 auto 18px;
+
+}
+
+.quick-card h4{
+
+    font-size:18px;
+
+    font-weight:700;
+
+}
+
+.quick-card p{
+
+    margin:7px 0 0;
+
+    color:#64748b;
+
+    font-size:13px;
+
+}
+
+/* =========================================================
+   CHARTS
+========================================================= */
+
+.chart-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:25px;
+
+    margin-bottom:25px;
+
+}
+
+.chart-card{
+
+    padding:25px;
+
+    min-height:430px;
+
+}
+
+.chart-container{
+
+    height:330px;
+
+    position:relative;
+
+    margin-top:20px;
+
+}
+
+.line-chart-card{
+
+    padding:25px;
+
+    margin-bottom:35px;
+
+}
+
+.line-chart-container{
+
+    height:380px;
+
+    position:relative;
+
+    margin-top:20px;
+
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px){
+
+    .summary-grid{
+
+        grid-template-columns:
+        repeat(2,1fr);
+
+    }
+
+    .quick-grid{
+
+        grid-template-columns:
+        repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:900px){
+
+    .dashboard-container{
+
+        padding:25px;
+
+    }
+
+    .hero{
+
+        padding:30px;
+
+    }
+
+    .hero h1{
+
+        font-size:34px;
+
+    }
+
+    .chart-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .budget-stats{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:650px){
+
+    .top-navbar{
+
+        padding:15px;
+
+    }
+
+    .dashboard-container{
+
+        padding:18px;
+
+    }
+
+    .summary-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .quick-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .ai-features{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .hero h1{
+
+        font-size:29px;
+
+    }
+
+    .summary-value{
+
+        font-size:26px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+{% include "includes/sidebar.html" %}
+
+<div class="main-content">
+
+<!-- =========================================================
+     TOP NAVBAR
+========================================================= -->
+
+<nav class="top-navbar">
+
+<div class="container-fluid">
+
+<div class="d-flex justify-content-between align-items-center">
+
+<div>
+
+<a class="brand">
+
+<i class="fa-solid fa-wallet text-primary"></i>
+
+Expense<span>Tracker</span>
+
+</a>
+
+</div>
+
+<div class="d-flex align-items-center gap-2">
+
+<div class="welcome-text d-none d-md-block me-2">
+
+Welcome,
+
+<strong>{{ username }}</strong>
+
+</div>
+
+<a href="{{ url_for('profile') }}"
+class="nav-action profile-btn">
+
+<i class="fa-solid fa-user"></i>
+
+Profile
+
+</a>
+
+<a href="{{ url_for('logout') }}"
+class="nav-action logout-btn">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+Logout
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</nav>
+
+
+<div class="dashboard-container">
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<div class="hero">
+
+<div class="row align-items-center">
+
+<div class="col-lg-8">
+
+<div class="hero-content">
+
+<h1>
+
+{{ greeting }}, {{ username }} 👋
+
+</h1>
+
+<p>
+
+Your personal financial dashboard.
+
+Track income, control expenses, monitor your savings,
+
+and make smarter financial decisions.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-4 mt-4 mt-lg-0">
+
+<div class="health-card">
+
+<div class="health-icon">
+
+<i class="fa-solid fa-heart-pulse"></i>
+
+</div>
+
+<h5>Financial Health</h5>
+
+<h2>
+
+{{ "%.0f"|format(savings_percentage) }}%
+
+</h2>
+
+<p>
+
+<i class="fa-solid fa-arrow-trend-up"></i>
+
+Great Progress
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     FLASH MESSAGES
+========================================================= -->
+
+{% with messages=get_flashed_messages(with_categories=true) %}
+
+{% if messages %}
+
+{% for category,message in messages %}
+
+<div class="alert alert-{{ category }} alert-dismissible fade show mb-4">
+
+{{ message }}
+
+<button class="btn-close"
+data-bs-dismiss="alert"></button>
+
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+{% endwith %}
+
+
+<!-- =========================================================
+     FINANCIAL OVERVIEW
+========================================================= -->
+
+<h3 class="section-title">
+
+<i class="fa-solid fa-chart-pie"></i>
+
+Financial Overview
+
+</h3>
+
+<div class="summary-grid">
+
+<div class="summary-card">
+
+<div class="summary-icon icon-income">
+
+<i class="fa-solid fa-money-bill-trend-up"></i>
+
+</div>
+
+<div class="summary-label">
+
+Total Income
+
+</div>
+
+<div class="summary-value">
+
+₹{{ "%.2f"|format(total_income) }}
+
+</div>
+
+</div>
+
+
+<div class="summary-card">
+
+<div class="summary-icon icon-expense">
+
+<i class="fa-solid fa-wallet"></i>
+
+</div>
+
+<div class="summary-label">
+
+Total Expense
+
+</div>
+
+<div class="summary-value">
+
+₹{{ "%.2f"|format(total_expense) }}
+
+</div>
+
+</div>
+
+
+<div class="summary-card">
+
+<div class="summary-icon icon-balance">
+
+<i class="fa-solid fa-building-columns"></i>
+
+</div>
+
+<div class="summary-label">
+
+Current Balance
+
+</div>
+
+<div class="summary-value">
+
+₹{{ "%.2f"|format(balance) }}
+
+</div>
+
+</div>
+
+
+<div class="summary-card">
+
+<div class="summary-icon icon-saving">
+
+<i class="fa-solid fa-piggy-bank"></i>
+
+</div>
+
+<div class="summary-label">
+
+Total Savings
+
+</div>
+
+<div class="summary-value">
+
+₹{{ "%.2f"|format(savings) }}
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     AI ASSISTANT
+========================================================= -->
+
+<h3 class="section-title">
+
+<i class="fa-solid fa-robot"></i>
+
+AI Financial Assistant
+
+</h3>
+
+<div class="ai-card mb-5"
+id="ai-chat">
+
+<div class="row align-items-center">
+
+<div class="col-lg-8">
+
+<div class="ai-content">
+
+<span class="ai-badge">
+
+<i class="fa-solid fa-sparkles"></i>
+
+AI Powered
+
+</span>
+
+<h2>
+
+Your Personal Financial Assistant
+
+</h2>
+
+<p class="mt-3">
+
+Analyze your expenses, understand your savings,
+
+receive intelligent financial recommendations,
+
+and get personalized insights about your finances.
+
+</p>
+
+<div class="ai-features">
+
+<div class="ai-feature">
+
+<i class="fa-solid fa-circle-check"></i>
+
+Expense Analysis
+
+</div>
+
+<div class="ai-feature">
+
+<i class="fa-solid fa-circle-check"></i>
+
+Savings Suggestions
+
+</div>
+
+<div class="ai-feature">
+
+<i class="fa-solid fa-circle-check"></i>
+
+Financial Insights
+
+</div>
+
+<div class="ai-feature">
+
+<i class="fa-solid fa-circle-check"></i>
+
+Smart Recommendations
+
+</div>
+
+</div>
+
+<a href="{{ url_for('ai_chat') }}"
+class="ai-btn">
+
+<i class="fa-solid fa-comments"></i>
+
+Open AI Assistant
+
+</a>
+
+</div>
+
+</div>
+
+<div class="col-lg-4 text-center mt-4 mt-lg-0">
+
+<img
+src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png"
+class="ai-image"
+alt="AI Assistant">
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     MONTHLY BUDGET
+========================================================= -->
+
+<h3 class="section-title">
+
+<i class="fa-solid fa-bullseye"></i>
+
+Monthly Budget Planner
+
+</h3>
+
+<div class="dashboard-card budget-card mb-5">
+
+<div class="budget-stats">
+
+<div class="budget-stat">
+
+<h6>Monthly Budget</h6>
+
+<h3 class="text-primary">
+
+₹{{ "%.2f"|format(monthly_budget) }}
+
+</h3>
+
+</div>
+
+<div class="budget-stat">
+
+<h6>Total Spent</h6>
+
+<h3 class="text-danger">
+
+₹{{ "%.2f"|format(total_expense) }}
+
+</h3>
+
+</div>
+
+<div class="budget-stat">
+
+<h6>Remaining Budget</h6>
+
+<h3 class="text-success">
+
+₹{{ "%.2f"|format(remaining_budget) }}
+
+</h3>
+
+</div>
+
+</div>
+
+<div class="budget-progress">
+
+<div class="budget-progress-header">
+
+<span>Budget Usage</span>
+
+<span>
+
+{{ "%.1f"|format(budget_percentage) }}%
+
+</span>
+
+</div>
+
+<div class="progress">
+
+<div
+class="progress-bar
+{% if budget_percentage < 60 %}
+bg-success
+{% elif budget_percentage < 90 %}
+bg-warning
+{% else %}
+bg-danger
+{% endif %}"
+
+style="width:{{ [budget_percentage,100]|min }}%;">
+
+</div>
+
+</div>
+
+</div>
+
+{% if budget_exceeded %}
+
+<div class="alert alert-danger mt-4">
+
+<i class="fa-solid fa-triangle-exclamation"></i>
+
+You have exceeded your monthly budget.
+
+</div>
+
+{% elif budget_percentage >= 80 %}
+
+<div class="alert alert-warning mt-4">
+
+<i class="fa-solid fa-circle-exclamation"></i>
+
+You have already used
+{{ "%.1f"|format(budget_percentage) }}%
+of your budget.
+
+</div>
+
+{% endif %}
+
+</div>
+
+
+<!-- =========================================================
+     QUICK ACTIONS
+========================================================= -->
+
+<h3 class="section-title">
+
+<i class="fa-solid fa-bolt"></i>
+
+Quick Actions
+
+</h3>
+
+<div class="quick-grid">
+
+<a href="{{ url_for('add_income') }}"
+class="quick-card">
+
+<div class="quick-icon bg-success-subtle text-success">
+
+<i class="fa-solid fa-plus"></i>
+
+</div>
+
+<h4>Add Income</h4>
+
+<p>Record a new source of income.</p>
+
+</a>
+
+
+<a href="{{ url_for('add_expense') }}"
+class="quick-card">
+
+<div class="quick-icon bg-danger-subtle text-danger">
+
+<i class="fa-solid fa-minus"></i>
+
+</div>
+
+<h4>Add Expense</h4>
+
+<p>Track a new expense.</p>
+
+</a>
+
+
+<a href="{{ url_for('transactions') }}"
+class="quick-card">
+
+<div class="quick-icon bg-primary-subtle text-primary">
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+</div>
+
+<h4>Transactions</h4>
+
+<p>View and manage transactions.</p>
+
+</a>
+
+
+<a href="{{ url_for('daily_report') }}"
+class="quick-card">
+
+<div class="quick-icon bg-warning-subtle text-warning">
+
+<i class="fa-solid fa-calendar-day"></i>
+
+</div>
+
+<h4>Daily Report</h4>
+
+<p>View today's financial summary.</p>
+
+</a>
+
+
+<a href="{{ url_for('monthly_report') }}"
+class="quick-card">
+
+<div class="quick-icon bg-info-subtle text-info">
+
+<i class="fa-solid fa-chart-column"></i>
+
+</div>
+
+<h4>Monthly Report</h4>
+
+<p>View your monthly report.</p>
+
+</a>
+
+
+<a href="{{ url_for('set_budget') }}"
+class="quick-card">
+
+<div class="quick-icon bg-secondary-subtle text-secondary">
+
+<i class="fa-solid fa-bullseye"></i>
+
+</div>
+
+<h4>Set Budget</h4>
+
+<p>Manage your monthly budget.</p>
+
+</a>
+
+</div>
+
+
+<!-- =========================================================
+     FINANCIAL ANALYTICS
+========================================================= -->
+
+<h3 class="section-title">
+
+<i class="fa-solid fa-chart-line"></i>
+
+Financial Analytics
+
+</h3>
+
+
+<div class="chart-grid">
+
+<!-- Income Expense -->
+
+<div class="dashboard-card chart-card">
+
+<div class="card-header-custom">
+
+<div>
+
+<h3>
+
+<i class="fa-solid fa-chart-column text-primary"></i>
+
+Income vs Expense
+
+</h3>
+
+<p>Current month financial comparison</p>
+
+</div>
+
+</div>
+
+<div class="chart-container">
+
+<canvas id="incomeExpenseChart"></canvas>
+
+</div>
+
+</div>
+
+
+<!-- Expense Categories -->
+
+<div class="dashboard-card chart-card">
+
+<div class="card-header-custom">
+
+<div>
+
+<h3>
+
+<i class="fa-solid fa-chart-pie text-primary"></i>
+
+Expense Categories
+
+</h3>
+
+<p>Current month spending distribution</p>
+
+</div>
+
+</div>
+
+<div class="chart-container">
+
+<canvas id="expensePieChart"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- Monthly Trend -->
+
+<div class="dashboard-card line-chart-card">
+
+<div class="card-header-custom">
+
+<div>
+
+<h3>
+
+<i class="fa-solid fa-chart-line text-primary"></i>
+
+Monthly Income vs Expense Trend
+
+</h3>
+
+<p>Track your financial movement over time</p>
+
+</div>
+
+</div>
+
+<div class="line-chart-container">
+
+<canvas id="monthlyChart"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     CHART.JS
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+window.addEventListener("load", function(){
+
+/* =====================================================
+   INCOME VS EXPENSE
+===================================================== */
+
+new Chart(
+document.getElementById("incomeExpenseChart"),
+{
+
+type:"bar",
+
+data:{
+
+labels:["Income","Expense"],
+
+datasets:[{
+
+label:"Amount",
+
+data:[
+{{ chart_income }},
+{{ chart_expense }}
+],
+
+backgroundColor:[
+"#22c55e",
+"#ef4444"
+],
+
+borderRadius:12,
+
+borderSkipped:false
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+maintainAspectRatio:false,
+
+plugins:{
+
+legend:{
+display:false
+}
+
+},
+
+scales:{
+
+y:{
+
+beginAtZero:true,
+
+grid:{
+color:"#e2e8f0"
+}
+
+},
+
+x:{
+
+grid:{
+display:false
+}
+
+}
+
+}
+
+}
+
+}
+);
+
+
+/* =====================================================
+   EXPENSE PIE
+===================================================== */
+
+new Chart(
+document.getElementById("expensePieChart"),
+{
+
+type:"doughnut",
+
+data:{
+
+labels:{{ pie_labels|tojson }},
+
+datasets:[{
+
+data:{{ pie_values|tojson }},
+
+backgroundColor:[
+
+"#2563eb",
+"#22c55e",
+"#f59e0b",
+"#ef4444",
+"#8b5cf6",
+"#06b6d4",
+"#ec4899",
+"#84cc16",
+"#14b8a6",
+"#f97316"
+
+],
+
+borderWidth:3,
+
+borderColor:"#ffffff"
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+maintainAspectRatio:false,
+
+cutout:"65%",
+
+plugins:{
+
+legend:{
+
+position:"right",
+
+labels:{
+
+padding:15,
+
+usePointStyle:true
+
+}
+
+}
+
+}
+
+}
+
+}
+);
+
+
+/* =====================================================
+   MONTHLY TREND
+===================================================== */
+
+new Chart(
+document.getElementById("monthlyChart"),
+{
+
+type:"line",
+
+data:{
+
+labels:{{ month_labels|tojson }},
+
+datasets:[
+
+{
+
+label:"Income",
+
+data:{{ monthly_income|tojson }},
+
+borderColor:"#22c55e",
+
+backgroundColor:"#22c55e",
+
+borderWidth:3,
+
+pointRadius:4,
+
+pointHoverRadius:7,
+
+fill:false,
+
+tension:.4
+
+},
+
+{
+
+label:"Expense",
+
+data:{{ monthly_expense|tojson }},
+
+borderColor:"#ef4444",
+
+backgroundColor:"#ef4444",
+
+borderWidth:3,
+
+pointRadius:4,
+
+pointHoverRadius:7,
+
+fill:false,
+
+tension:.4
+
+}
+
+]
+
+},
+
+options:{
+
+responsive:true,
+
+maintainAspectRatio:false,
+
+interaction:{
+
+mode:"index",
+
+intersect:false
+
+},
+
+plugins:{
+
+legend:{
+
+position:"top",
+
+labels:{
+
+usePointStyle:true,
+
+padding:20
+
+}
+
+}
+
+},
+
+scales:{
+
+y:{
+
+beginAtZero:true,
+
+grid:{
+
+color:"#e2e8f0"
+
+}
+
+},
+
+x:{
+
+grid:{
+
+display:false
+
+}
+
+}
+
+}
+
+}
+
+}
+);
+
+});
+
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

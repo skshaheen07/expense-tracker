@@ -1,0 +1,1926 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile | Expense Tracker</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Google Font -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+
+
+        /* =====================================================
+           BODY
+        ===================================================== */
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(37, 99, 235, 0.12),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 90% 20%,
+                    rgba(124, 58, 237, 0.10),
+                    transparent 30%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #eef4ff,
+                    #f8faff,
+                    #eef3ff
+                );
+
+            background-size: 200% 200%;
+
+            animation: backgroundMove 15s ease infinite;
+
+            color: #0f172a;
+
+            overflow-x: hidden;
+        }
+
+
+        @keyframes backgroundMove {
+
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        .navbar {
+
+            height: 76px;
+
+            background:
+                rgba(255, 255, 255, 0.88);
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            border-bottom:
+                1px solid rgba(226, 232, 240, 0.8);
+
+            display: flex;
+
+            align-items: center;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            box-shadow:
+                0 8px 30px rgba(15, 23, 42, 0.05);
+        }
+
+
+        .navbar-container {
+
+            width: min(1250px, 92%);
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        /* =====================================================
+           BRAND
+        ===================================================== */
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            text-decoration: none;
+
+            color: #0f172a;
+        }
+
+
+        .brand-icon {
+
+            width: 43px;
+
+            height: 43px;
+
+            border-radius: 13px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: white;
+
+            font-size: 17px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #4f46e5,
+                    #7c3aed
+                );
+
+            box-shadow:
+                0 8px 20px rgba(79, 70, 229, 0.25);
+        }
+
+
+        .brand-text {
+
+            display: flex;
+
+            flex-direction: column;
+        }
+
+
+        .brand-text strong {
+
+            font-size: 15px;
+
+            font-weight: 800;
+        }
+
+
+        .brand-text span {
+
+            font-size: 10px;
+
+            color: #64748b;
+
+            margin-top: 2px;
+        }
+
+
+        /* =====================================================
+           DASHBOARD BUTTON
+        ===================================================== */
+
+        .dashboard-btn {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            padding: 11px 18px;
+
+            border-radius: 12px;
+
+            text-decoration: none;
+
+            color: #334155;
+
+            background: white;
+
+            border: 1px solid #e2e8f0;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+
+            box-shadow:
+                0 5px 15px rgba(15, 23, 42, 0.05);
+        }
+
+
+        .dashboard-btn:hover {
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #4f46e5
+                );
+
+            border-color: transparent;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 25px rgba(37, 99, 235, 0.25);
+        }
+
+
+        /* =====================================================
+           MAIN CONTAINER
+        ===================================================== */
+
+        .main-container {
+
+            width: min(1100px, 92%);
+
+            margin: 45px auto 70px;
+        }
+
+
+        /* =====================================================
+           PAGE HEADER
+        ===================================================== */
+
+        .page-header {
+
+            margin-bottom: 28px;
+
+            animation: fadeUp 0.5s ease;
+        }
+
+
+        .page-header h1 {
+
+            font-size: 34px;
+
+            font-weight: 800;
+
+            letter-spacing: -1px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #0f172a,
+                    #2563eb,
+                    #4f46e5
+                );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        .page-header p {
+
+            margin-top: 8px;
+
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           FLASH MESSAGES
+        ===================================================== */
+
+        .flash-container {
+
+            margin-bottom: 25px;
+        }
+
+
+        .alert {
+
+            padding: 14px 18px;
+
+            border-radius: 14px;
+
+            margin-bottom: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            animation: fadeUp 0.4s ease;
+        }
+
+
+        .alert-success {
+
+            background: #ecfdf5;
+
+            color: #047857;
+
+            border:
+                1px solid #a7f3d0;
+        }
+
+
+        .alert-danger {
+
+            background: #fef2f2;
+
+            color: #b91c1c;
+
+            border:
+                1px solid #fecaca;
+        }
+
+
+        .alert-warning {
+
+            background: #fffbeb;
+
+            color: #b45309;
+
+            border:
+                1px solid #fde68a;
+        }
+
+
+        .alert-info {
+
+            background: #eff6ff;
+
+            color: #1d4ed8;
+
+            border:
+                1px solid #bfdbfe;
+        }
+
+
+        /* =====================================================
+           PROFILE HERO
+        ===================================================== */
+
+        .profile-hero {
+
+            position: relative;
+
+            overflow: hidden;
+
+            border-radius: 26px;
+
+            padding: 34px;
+
+            margin-bottom: 25px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #172554,
+                    #1e40af,
+                    #4f46e5
+                );
+
+            box-shadow:
+                0 25px 60px rgba(37, 99, 235, 0.25);
+
+            color: white;
+
+            animation: fadeUp 0.65s ease;
+        }
+
+
+        .profile-hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 260px;
+
+            height: 260px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.08);
+
+            right: -80px;
+
+            top: -100px;
+        }
+
+
+        .profile-hero::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+
+            height: 180px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.06);
+
+            left: 35%;
+
+            bottom: -120px;
+        }
+
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 25px;
+        }
+
+
+        .identity {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 22px;
+        }
+
+
+        /* =====================================================
+           PROFILE AVATAR
+        ===================================================== */
+
+        .avatar {
+
+            width: 105px;
+
+            height: 105px;
+
+            border-radius: 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,255,255,0.28),
+                    rgba(255,255,255,0.12)
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.35);
+
+            backdrop-filter: blur(15px);
+
+            -webkit-backdrop-filter: blur(15px);
+
+            font-size: 39px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,0.15);
+        }
+
+
+        .identity-text h2 {
+
+            font-size: 28px;
+
+            font-weight: 800;
+
+            margin-bottom: 7px;
+        }
+
+
+        .identity-text p {
+
+            font-size: 13px;
+
+            color: rgba(255,255,255,0.78);
+
+            margin-bottom: 9px;
+        }
+
+
+        .account-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(255,255,255,0.13);
+
+            border:
+                1px solid rgba(255,255,255,0.18);
+
+            font-size: 10px;
+
+            font-weight: 600;
+        }
+
+
+        .account-badge i {
+
+            color: #86efac;
+        }
+
+
+        /* =====================================================
+           HERO ACTION
+        ===================================================== */
+
+        .hero-actions {
+
+            display: flex;
+
+            gap: 10px;
+        }
+
+
+        .hero-btn {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 12px 17px;
+
+            border-radius: 12px;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            transition: 0.3s;
+        }
+
+
+        .edit-btn {
+
+            color: #1e3a8a;
+
+            background: white;
+        }
+
+
+        .edit-btn:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 10px 25px rgba(0,0,0,0.18);
+        }
+
+
+        /* =====================================================
+           CONTENT GRID
+        ===================================================== */
+
+        .content-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1.35fr
+                0.65fr;
+
+            gap: 25px;
+        }
+
+
+        /* =====================================================
+           CARD
+        ===================================================== */
+
+        .card {
+
+            background:
+                rgba(255,255,255,0.88);
+
+            backdrop-filter: blur(20px);
+
+            -webkit-backdrop-filter: blur(20px);
+
+            border:
+                1px solid rgba(255,255,255,0.8);
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 15px 40px rgba(15,23,42,0.07);
+
+            overflow: hidden;
+
+            animation: fadeUp 0.8s ease;
+        }
+
+
+        .card-header {
+
+            padding: 22px 25px;
+
+            border-bottom:
+                1px solid #eef2f7;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .header-icon {
+
+            width: 40px;
+
+            height: 40px;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: #2563eb;
+
+            background: #eff6ff;
+        }
+
+
+        .card-header h3 {
+
+            font-size: 16px;
+
+            font-weight: 750;
+
+            color: #0f172a;
+        }
+
+
+        .card-header p {
+
+            color: #94a3b8;
+
+            font-size: 11px;
+
+            margin-top: 3px;
+        }
+
+
+        .card-body {
+
+            padding: 25px;
+        }
+
+
+        /* =====================================================
+           INFORMATION ROW
+        ===================================================== */
+
+        .info-row {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 18px 0;
+
+            border-bottom:
+                1px solid #f1f5f9;
+        }
+
+
+        .info-row:last-child {
+
+            border-bottom: none;
+
+            padding-bottom: 0;
+        }
+
+
+        .info-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+        }
+
+
+        .info-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .info-icon.blue {
+
+            color: #2563eb;
+
+            background: #eff6ff;
+        }
+
+
+        .info-icon.purple {
+
+            color: #7c3aed;
+
+            background: #f5f3ff;
+        }
+
+
+        .info-label {
+
+            color: #94a3b8;
+
+            font-size: 11px;
+
+            margin-bottom: 4px;
+        }
+
+
+        .info-value {
+
+            color: #0f172a;
+
+            font-size: 14px;
+
+            font-weight: 650;
+        }
+
+
+        /* =====================================================
+           SECURITY CARD
+        ===================================================== */
+
+        .security-card {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #f8faff
+                );
+        }
+
+
+        .security-status {
+
+            padding: 20px;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ecfdf5,
+                    #f0fdf4
+                );
+
+            border:
+                1px solid #bbf7d0;
+
+            margin-bottom: 18px;
+        }
+
+
+        .security-top {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 10px;
+        }
+
+
+        .security-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            color: #166534;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        .secure-badge {
+
+            padding: 5px 9px;
+
+            border-radius: 20px;
+
+            color: #15803d;
+
+            background: #dcfce7;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+        }
+
+
+        .security-description {
+
+            color: #4d7c5c;
+
+            font-size: 11px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           ACTION BUTTONS
+        ===================================================== */
+
+        .action-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+
+        .action-button {
+
+            width: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 13px;
+
+            border-radius: 13px;
+
+            text-decoration: none;
+
+            background: #f8fafc;
+
+            border:
+                1px solid #e2e8f0;
+
+            color: #334155;
+
+            transition: 0.25s;
+        }
+
+
+        .action-button:hover {
+
+            background: #eff6ff;
+
+            border-color: #bfdbfe;
+
+            color: #2563eb;
+
+            transform: translateX(3px);
+        }
+
+
+        .action-button .action-icon {
+
+            width: 36px;
+
+            height: 36px;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: white;
+
+            color: #2563eb;
+
+            box-shadow:
+                0 3px 8px rgba(15,23,42,0.05);
+        }
+
+
+        .action-text {
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: flex-start;
+        }
+
+
+        .action-text strong {
+
+            font-size: 12px;
+        }
+
+
+        .action-text span {
+
+            font-size: 10px;
+
+            color: #94a3b8;
+
+            margin-top: 2px;
+        }
+
+
+        /* =====================================================
+           ACCOUNT STATUS
+        ===================================================== */
+
+        .status-card {
+
+            margin-top: 25px;
+
+            padding: 22px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f8fafc,
+                    #ffffff
+                );
+
+            border:
+                1px solid #e2e8f0;
+
+            animation: fadeUp 0.95s ease;
+        }
+
+
+        .status-heading {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .status-heading i {
+
+            color: #2563eb;
+        }
+
+
+        .status-heading strong {
+
+            font-size: 13px;
+        }
+
+
+        .status-items {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+        }
+
+
+        .status-item {
+
+            padding: 15px;
+
+            border-radius: 14px;
+
+            background: white;
+
+            border:
+                1px solid #eef2f7;
+
+            text-align: center;
+        }
+
+
+        .status-item i {
+
+            font-size: 16px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .status-item strong {
+
+            display: block;
+
+            font-size: 11px;
+
+            color: #334155;
+        }
+
+
+        .status-item span {
+
+            display: block;
+
+            font-size: 9px;
+
+            color: #94a3b8;
+
+            margin-top: 3px;
+        }
+
+
+        .green-icon {
+
+            color: #16a34a;
+        }
+
+
+        .blue-icon {
+
+            color: #2563eb;
+        }
+
+
+        .purple-icon {
+
+            color: #7c3aed;
+        }
+
+
+        /* =====================================================
+           BACK BUTTON
+        ===================================================== */
+
+        .back-section {
+
+            margin-top: 25px;
+
+            display: flex;
+
+            justify-content: center;
+        }
+
+
+        .back-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 12px 20px;
+
+            border-radius: 12px;
+
+            color: #64748b;
+
+            background: white;
+
+            border:
+                1px solid #e2e8f0;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+
+        .back-btn:hover {
+
+            color: #2563eb;
+
+            border-color: #bfdbfe;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =====================================================
+           ANIMATION
+        ===================================================== */
+
+        @keyframes fadeUp {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(25px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .content-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .hero-content {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+
+            .hero-actions {
+
+                width: 100%;
+            }
+
+
+            .hero-btn {
+
+                justify-content: center;
+
+                flex: 1;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .navbar {
+
+                height: 68px;
+            }
+
+
+            .brand-text {
+
+                display: none;
+            }
+
+
+            .main-container {
+
+                margin-top: 30px;
+            }
+
+
+            .page-header h1 {
+
+                font-size: 27px;
+            }
+
+
+            .profile-hero {
+
+                padding: 25px;
+
+                border-radius: 21px;
+            }
+
+
+            .identity {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+
+            .avatar {
+
+                width: 85px;
+
+                height: 85px;
+
+                font-size: 32px;
+            }
+
+
+            .identity-text h2 {
+
+                font-size: 24px;
+            }
+
+
+            .hero-actions {
+
+                flex-direction: column;
+            }
+
+
+            .card-body {
+
+                padding: 20px;
+            }
+
+
+            .status-items {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .info-row {
+
+                align-items: flex-start;
+
+                gap: 15px;
+            }
+
+
+            .info-value {
+
+                text-align: right;
+
+                word-break: break-word;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar">
+
+    <div class="navbar-container">
+
+
+        <!-- BRAND -->
+
+        <a href="{{ url_for('dashboard') }}"
+           class="brand">
+
+            <div class="brand-icon">
+
+                <i class="fa-solid fa-wallet"></i>
+
+            </div>
+
+
+            <div class="brand-text">
+
+                <strong>
+                    Expense Tracker
+                </strong>
+
+                <span>
+                    Personal Finance
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- DASHBOARD -->
+
+        <a href="{{ url_for('dashboard') }}"
+           class="dashboard-btn">
+
+            <i class="fa-solid fa-house"></i>
+
+            Dashboard
+
+        </a>
+
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main-container">
+
+
+    <!-- PAGE HEADER -->
+
+    <div class="page-header">
+
+        <h1>
+            My Profile
+        </h1>
+
+        <p>
+            Manage your personal information and account security.
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         FLASH MESSAGES
+    ====================================================== -->
+
+    <div class="flash-container">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="alert alert-{{ category }}">
+
+                        {% if category == "success" %}
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                        {% elif category == "danger" %}
+
+                            <i class="fa-solid fa-circle-exclamation"></i>
+
+                        {% elif category == "warning" %}
+
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+
+                        {% else %}
+
+                            <i class="fa-solid fa-circle-info"></i>
+
+                        {% endif %}
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+    </div>
+
+
+
+    <!-- =====================================================
+         PROFILE HERO
+    ====================================================== -->
+
+    <section class="profile-hero">
+
+
+        <div class="hero-content">
+
+
+            <div class="identity">
+
+
+                <!-- AVATAR -->
+
+                <div class="avatar">
+
+                    {{ user.name[0]|upper }}
+
+                </div>
+
+
+                <!-- NAME -->
+
+                <div class="identity-text">
+
+                    <h2>
+                        {{ user.name }}
+                    </h2>
+
+                    <p>
+                        {{ user.email }}
+                    </p>
+
+
+                    <div class="account-badge">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        Active Account
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- EDIT -->
+
+            <div class="hero-actions">
+
+                <a href="{{ url_for('edit_profile') }}"
+                   class="hero-btn edit-btn">
+
+                    <i class="fa-solid fa-pen"></i>
+
+                    Edit Profile
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CONTENT
+    ====================================================== -->
+
+    <div class="content-grid">
+
+
+        <!-- =================================================
+             PERSONAL INFORMATION
+        ================================================== -->
+
+        <section class="card">
+
+
+            <div class="card-header">
+
+                <div class="header-icon">
+
+                    <i class="fa-solid fa-user"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Personal Information
+                    </h3>
+
+                    <p>
+                        Your basic account information
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="card-body">
+
+
+                <!-- NAME -->
+
+                <div class="info-row">
+
+                    <div class="info-left">
+
+                        <div class="info-icon blue">
+
+                            <i class="fa-solid fa-user"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="info-label">
+                                Full Name
+                            </div>
+
+                            <div class="info-value">
+                                {{ user.name }}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="info-row">
+
+                    <div class="info-left">
+
+                        <div class="info-icon purple">
+
+                            <i class="fa-solid fa-envelope"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="info-label">
+                                Email Address
+                            </div>
+
+                            <div class="info-value">
+                                {{ user.email }}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SECURITY
+        ================================================== -->
+
+        <section class="card security-card">
+
+
+            <div class="card-header">
+
+                <div class="header-icon">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Account Security
+                    </h3>
+
+                    <p>
+                        Keep your account protected
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="card-body">
+
+
+                <!-- SECURITY STATUS -->
+
+                <div class="security-status">
+
+
+                    <div class="security-top">
+
+                        <div class="security-title">
+
+                            <i class="fa-solid fa-shield-check"></i>
+
+                            Security Status
+
+                        </div>
+
+
+                        <span class="secure-badge">
+
+                            Secure
+
+                        </span>
+
+                    </div>
+
+
+                    <p class="security-description">
+
+                        Your account is protected with a password.
+                        Keep your login credentials private and secure.
+
+                    </p>
+
+
+                </div>
+
+
+
+                <!-- ACTIONS -->
+
+                <div class="action-list">
+
+
+                    <!-- EDIT -->
+
+                    <a href="{{ url_for('edit_profile') }}"
+                       class="action-button">
+
+                        <div class="action-icon">
+
+                            <i class="fa-solid fa-user-pen"></i>
+
+                        </div>
+
+
+                        <div class="action-text">
+
+                            <strong>
+                                Edit Profile
+                            </strong>
+
+                            <span>
+                                Update your personal information
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <!-- PASSWORD -->
+
+                    <a href="{{ url_for('change_password') }}"
+                       class="action-button">
+
+                        <div class="action-icon">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                        </div>
+
+
+                        <div class="action-text">
+
+                            <strong>
+                                Change Password
+                            </strong>
+
+                            <span>
+                                Update your account password
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         ACCOUNT STATUS
+    ====================================================== -->
+
+    <section class="status-card">
+
+
+        <div class="status-heading">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <strong>
+                Account Overview
+            </strong>
+
+        </div>
+
+
+
+        <div class="status-items">
+
+
+            <!-- ACCOUNT -->
+
+            <div class="status-item">
+
+                <i class="fa-solid fa-circle-check green-icon"></i>
+
+                <strong>
+                    Active
+                </strong>
+
+                <span>
+                    Account status
+                </span>
+
+            </div>
+
+
+            <!-- PROFILE -->
+
+            <div class="status-item">
+
+                <i class="fa-solid fa-user-check blue-icon"></i>
+
+                <strong>
+                    Complete
+                </strong>
+
+                <span>
+                    Profile status
+                </span>
+
+            </div>
+
+
+            <!-- SECURITY -->
+
+            <div class="status-item">
+
+                <i class="fa-solid fa-shield-halved purple-icon"></i>
+
+                <strong>
+                    Protected
+                </strong>
+
+                <span>
+                    Security status
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         BACK
+    ====================================================== -->
+
+    <div class="back-section">
+
+        <a href="{{ url_for('dashboard') }}"
+           class="back-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to Dashboard
+
+        </a>
+
+    </div>
+
+
+</main>
+
+
+</body>
+
+</html>

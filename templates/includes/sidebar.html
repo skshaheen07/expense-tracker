@@ -1,0 +1,105 @@
+<!-- ==========================================================
+                        SIDEBAR
+========================================================== -->
+
+<aside class="sidebar">
+
+    <!-- ================= LOGO ================= -->
+
+    <div class="sidebar-logo">
+        💰 <span>Expense Tracker</span>
+    </div>
+
+    <!-- ================= MENU ================= -->
+
+    <ul class="sidebar-menu">
+
+        <!-- MAIN -->
+
+        <li class="menu-title">
+            MAIN
+        </li>
+
+        <li class="active">
+            <a href="{{ url_for('dashboard') }}">
+                <i class="bi bi-grid-fill"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('ai_chat') }}">
+                <i class="bi bi-robot"></i>
+                <span>AI Assistant</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('analytics') }}">
+                <i class="bi bi-bar-chart-fill"></i>
+                <span>Financial Analytics</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('settings') }}">
+                <i class="bi bi-gear-fill"></i>
+                <span>Settings</span>
+            </a>
+        </li>
+
+        <!-- QUICK ACTIONS -->
+
+        <li class="menu-title">
+            QUICK ACTIONS
+        </li>
+
+        <li>
+            <a href="{{ url_for('add_income') }}">
+                <i class="bi bi-plus-circle-fill"></i>
+                <span>Add Income</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('add_expense') }}">
+                <i class="bi bi-dash-circle-fill"></i>
+                <span>Add Expense</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('transactions') }}">
+                <i class="bi bi-arrow-left-right"></i>
+                <span>Transactions</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('set_budget') }}">
+                <i class="bi bi-wallet2"></i>
+                <span>Budget Planner</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('reports') }}">
+                <i class="bi bi-file-earmark-bar-graph-fill"></i>
+                <span>Reports</span>
+            </a>
+        </li>
+
+    </ul>
+
+    <!-- ================= FOOTER ================= -->
+
+    <div class="sidebar-footer">
+
+        <a href="{{ url_for('logout') }}">
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Logout</span>
+        </a>
+
+    </div>
+
+</aside>

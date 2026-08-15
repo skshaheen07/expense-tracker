@@ -1,0 +1,865 @@
+/* ==========================================================
+                    GOOGLE FONT RESET
+========================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+
+    width:100%;
+    height:100%;
+    overflow:hidden;
+
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:
+    radial-gradient(circle at top left,#dbeafe 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#bfdbfe 0%,transparent 35%),
+    linear-gradient(135deg,#f8fbff,#eef5ff,#f8fbff);
+
+    position:relative;
+
+}
+
+/* ==========================================================
+                BACKGROUND GLOW
+========================================================== */
+
+.bg-circle{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    filter:blur(110px);
+
+    z-index:-1;
+
+}
+
+.one{
+
+    width:420px;
+    height:420px;
+
+    background:#7c3aed;
+
+    top:-170px;
+    left:-170px;
+
+    opacity:.18;
+
+}
+
+.two{
+
+    width:360px;
+    height:360px;
+
+    background:#3b82f6;
+
+    bottom:-130px;
+    right:-120px;
+
+    opacity:.22;
+
+}
+
+.three{
+
+    width:220px;
+    height:220px;
+
+    background:#06b6d4;
+
+    top:42%;
+    right:18%;
+
+    opacity:.18;
+
+}
+
+/* ==========================================================
+                    NAVBAR
+========================================================== */
+
+nav{
+
+    width:90%;
+
+    max-width:1350px;
+
+    margin:auto;
+
+    padding:28px 0;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.logo{
+
+    font-size:32px;
+
+    font-weight:700;
+
+    color:#1d4ed8;
+
+}
+
+.nav-buttons{
+
+    display:flex;
+
+    gap:18px;
+
+    align-items:center;
+
+}
+
+.nav-buttons a{
+
+    text-decoration:none;
+
+    color:#1e293b;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.nav-buttons a:hover{
+
+    color:#2563eb;
+
+}
+
+.register-nav{
+
+    padding:12px 28px;
+
+    border-radius:14px;
+
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+
+    color:white !important;
+
+    box-shadow:0 15px 35px rgba(37,99,235,.28);
+
+}
+
+.register-nav:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/* ==========================================================
+                        HERO
+========================================================== */
+
+.hero{
+
+    width:90%;
+
+    max-width:1350px;
+
+    height:calc(100vh - 100px);
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:80px;
+
+}
+
+/* ==========================================================
+                    LEFT SIDE
+========================================================== */
+
+.hero-left{
+
+    flex:1;
+
+}
+
+.badge{
+
+    display:inline-block;
+
+    padding:10px 22px;
+
+    border-radius:50px;
+
+    background:rgba(37,99,235,.10);
+
+    color:#2563eb;
+
+    font-weight:600;
+
+    font-size:15px;
+
+    margin-bottom:28px;
+
+    border:1px solid rgba(37,99,235,.18);
+
+}
+
+.hero-left h1{
+
+    font-size:72px;
+
+    font-weight:800;
+
+    line-height:1.08;
+
+    color:#111827;
+
+}
+
+.hero-left h1 span{
+
+    color:#2563eb;
+
+}
+
+.hero-left p{
+
+    margin-top:28px;
+
+    color:#64748b;
+
+    line-height:1.9;
+
+    font-size:20px;
+
+    max-width:620px;
+
+}
+
+/* ==========================================================
+                    BUTTONS
+========================================================== */
+
+.hero-buttons{
+
+    display:flex;
+
+    gap:22px;
+
+    margin-top:42px;
+
+}
+
+.primary-btn{
+
+    text-decoration:none;
+
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+
+    color:white;
+
+    padding:18px 42px;
+
+    border-radius:16px;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    box-shadow:0 20px 40px rgba(37,99,235,.30);
+
+    transition:.35s;
+
+}
+
+.primary-btn:hover{
+
+    color:white;
+
+    transform:translateY(-5px);
+
+}
+
+.secondary-btn{
+
+    text-decoration:none;
+
+    padding:18px 42px;
+
+    border-radius:16px;
+
+    border:2px solid #2563eb;
+
+    background:white;
+
+    color:#2563eb;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    transition:.35s;
+
+}
+
+.secondary-btn:hover{
+
+    background:#2563eb;
+
+    color:white;
+
+    transform:translateY(-5px);
+
+}
+
+/* ==========================================================
+                    FEATURES
+========================================================== */
+
+.features{
+
+    margin-top:55px;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:22px;
+
+}
+
+.feature-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    background:rgba(255,255,255,.72);
+
+    backdrop-filter:blur(15px);
+
+    padding:22px;
+
+    border-radius:18px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.06);
+
+    transition:.35s;
+
+}
+
+.feature-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 25px 45px rgba(37,99,235,.16);
+
+}
+
+.feature-card i{
+
+    font-size:32px;
+
+    color:#2563eb;
+
+}
+
+.feature-card h4{
+
+    font-size:18px;
+
+    color:#1f2937;
+
+}
+
+.feature-card p{
+
+    margin-top:4px;
+
+    font-size:14px;
+
+    color:#64748b;
+
+}
+/* ==========================================================
+                RIGHT SIDE
+========================================================== */
+
+.hero-right{
+
+    flex:0.95;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+/* ==========================================================
+                DASHBOARD CARD
+========================================================== */
+
+.dashboard-card{
+
+    width:100%;
+
+    max-width:500px;
+
+    background:rgba(255,255,255,.75);
+
+    backdrop-filter:blur(25px);
+
+    border:1px solid rgba(255,255,255,.45);
+
+    border-radius:35px;
+
+    padding:35px;
+
+    box-shadow:
+    0 30px 60px rgba(37,99,235,.12),
+    0 15px 30px rgba(0,0,0,.06);
+
+    animation:floatCard 5s ease-in-out infinite;
+
+    transition:.35s;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 45px 80px rgba(37,99,235,.18),
+    0 20px 40px rgba(0,0,0,.08);
+
+}
+
+.card-header h2{
+
+    font-size:32px;
+
+    color:#2563eb;
+
+    margin-bottom:6px;
+
+}
+
+.card-header p{
+
+    color:#64748b;
+
+    font-size:16px;
+
+}
+
+/* ==========================================================
+                    STATS
+========================================================== */
+
+.stats{
+
+    display:flex;
+
+    gap:18px;
+
+    margin-top:30px;
+
+}
+
+.stat-box{
+
+    flex:1;
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    text-align:center;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.05);
+
+}
+
+.stat-box small{
+
+    color:#64748b;
+
+}
+
+.stat-box h3{
+
+    margin-top:10px;
+
+    font-size:28px;
+
+    color:#111827;
+
+}
+
+/* ==========================================================
+                BUDGET PROGRESS
+========================================================== */
+
+.budget-section{
+
+    margin-top:30px;
+
+}
+
+.budget-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    font-weight:600;
+
+    color:#374151;
+
+    margin-bottom:12px;
+
+}
+
+.progress{
+
+    width:100%;
+
+    height:12px;
+
+    background:#e5e7eb;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+}
+
+.progress-bar{
+
+    width:72%;
+
+    height:100%;
+
+    border-radius:30px;
+
+    background:linear-gradient(90deg,#2563eb,#4f46e5);
+
+}
+
+/* ==========================================================
+                    BALANCE
+========================================================== */
+
+.balance-card{
+
+    margin-top:35px;
+
+    padding:30px;
+
+    border-radius:22px;
+
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+
+    color:white;
+
+    box-shadow:0 20px 45px rgba(79,70,229,.35);
+
+}
+
+.balance-card small{
+
+    opacity:.9;
+
+}
+
+.balance-card h1{
+
+    margin-top:10px;
+
+    font-size:44px;
+
+}
+
+/* ==========================================================
+            TRANSACTIONS
+========================================================== */
+
+.transactions{
+
+    margin-top:35px;
+
+}
+
+.transactions h4{
+
+    margin-bottom:18px;
+
+    color:#111827;
+
+}
+
+.transactions ul{
+
+    list-style:none;
+
+}
+
+.transactions li{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:14px 0;
+
+    border-bottom:1px solid #eef2f7;
+
+    color:#475569;
+
+}
+
+.transactions li:last-child{
+
+    border-bottom:none;
+
+}
+
+.income{
+
+    color:#10b981;
+
+    font-weight:700;
+
+}
+
+.expense{
+
+    color:#ef4444;
+
+    font-weight:700;
+
+}
+
+/* ==========================================================
+                ANIMATIONS
+========================================================== */
+
+.hero-left{
+
+    animation:slideLeft .8s ease;
+
+}
+
+.hero-right{
+
+    animation:slideRight .8s ease;
+
+}
+
+@keyframes slideLeft{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(-70px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateX(0);
+
+    }
+
+}
+
+@keyframes slideRight{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(70px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateX(0);
+
+    }
+
+}
+
+@keyframes floatCard{
+
+    0%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-10px);
+
+    }
+
+    100%{
+
+        transform:translateY(0px);
+
+    }
+
+}
+
+/* ==========================================================
+                RESPONSIVE
+========================================================== */
+
+@media(max-width:1100px){
+
+.hero{
+
+flex-direction:column;
+
+justify-content:center;
+
+height:auto;
+
+padding-bottom:60px;
+
+}
+
+.hero-left{
+
+text-align:center;
+
+}
+
+.hero-buttons{
+
+justify-content:center;
+
+}
+
+.features{
+
+grid-template-columns:1fr 1fr;
+
+}
+
+.hero-right{
+
+margin-top:50px;
+
+}
+
+body{
+
+overflow:auto;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.hero-left h1{
+
+font-size:48px;
+
+}
+
+.hero-left p{
+
+font-size:17px;
+
+}
+
+.hero-buttons{
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+.primary-btn,
+.secondary-btn{
+
+width:260px;
+
+justify-content:center;
+
+}
+
+.features{
+
+grid-template-columns:1fr;
+
+}
+
+.stats{
+
+flex-direction:column;
+
+}
+
+.dashboard-card{
+
+padding:25px;
+
+}
+
+.balance-card h1{
+
+font-size:34px;
+
+}
+
+}

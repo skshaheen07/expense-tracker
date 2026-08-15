@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Expense | Expense Tracker</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                linear-gradient(135deg,#edf4ff,#f7fbff,#eef6ff);
+
+            color: #0f172a;
+
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+
+            position: fixed;
+
+            width: 420px;
+            height: 420px;
+
+            background: #2563eb22;
+
+            border-radius: 50%;
+
+            top: -180px;
+            left: -150px;
+
+            filter: blur(90px);
+
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+
+            position: fixed;
+
+            width: 380px;
+            height: 380px;
+
+            background: #ef444422;
+
+            border-radius: 50%;
+
+            bottom: -150px;
+            right: -120px;
+
+            filter: blur(100px);
+
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 35px;
+        }
+
+        /* HEADER */
+
+        .header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 35px;
+        }
+
+        .header-left h1 {
+            font-size: 40px;
+
+            font-weight: 700;
+
+            color: #0f172a;
+        }
+
+        .header-left h1 i {
+            color: #ef4444;
+
+            margin-right: 10px;
+        }
+
+        .header-left p {
+            margin-top: 8px;
+
+            color: #64748b;
+
+            font-size: 15px;
+        }
+
+        .dashboard-btn {
+            padding: 14px 22px;
+
+            background:
+                linear-gradient(135deg,#2563eb,#4f46e5);
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 14px;
+
+            font-weight: 600;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            box-shadow:
+                0 12px 30px rgba(37,99,235,.20);
+
+            transition: .3s;
+        }
+
+        .dashboard-btn:hover {
+            transform: translateY(-4px);
+
+            color: white;
+        }
+
+        /* MAIN */
+
+        .content {
+            display: grid;
+
+            grid-template-columns: 1.1fr .9fr;
+
+            gap: 30px;
+        }
+
+        /* FORM CARD */
+
+        .form-card {
+            background: rgba(255,255,255,.92);
+
+            backdrop-filter: blur(18px);
+
+            padding: 35px;
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 18px 40px rgba(0,0,0,.08);
+        }
+
+        .form-card h2 {
+            font-size: 26px;
+
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #64748b;
+
+            margin-bottom: 28px;
+
+            font-size: 14px;
+        }
+
+        /* INPUT */
+
+        .input-group {
+            margin-bottom: 21px;
+        }
+
+        .input-group label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #334155;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+        .input-box {
+            display: flex;
+
+            align-items: center;
+
+            background: #f8fbff;
+
+            border: 1px solid #dbeafe;
+
+            border-radius: 14px;
+
+            padding: 0 15px;
+
+            transition: .3s;
+        }
+
+        .input-box:focus-within {
+            background: white;
+
+            border-color: #ef4444;
+
+            box-shadow:
+                0 0 0 4px rgba(239,68,68,.10);
+        }
+
+        .input-box i {
+            color: #ef4444;
+
+            width: 22px;
+
+            margin-right: 10px;
+        }
+
+        .input-box input,
+        .input-box select,
+        .input-box textarea {
+            width: 100%;
+
+            border: none;
+
+            outline: none;
+
+            background: transparent;
+
+            padding: 14px 8px;
+
+            font-size: 15px;
+
+            color: #0f172a;
+
+            resize: none;
+        }
+
+        /* BUTTON */
+
+        .submit-btn {
+            width: 100%;
+
+            border: none;
+
+            padding: 15px;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(135deg,#ef4444,#f97316);
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: .3s;
+
+            box-shadow:
+                0 12px 25px rgba(239,68,68,.20);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 18px 30px rgba(239,68,68,.25);
+        }
+
+        .submit-btn i {
+            margin-right: 8px;
+        }
+
+        /* INFORMATION */
+
+        .info-card {
+            background:
+                linear-gradient(145deg,#dc2626,#ef4444,#f97316);
+
+            color: white;
+
+            padding: 35px;
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 20px 40px rgba(239,68,68,.22);
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .info-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,.10);
+
+            right: -70px;
+            top: -70px;
+        }
+
+        .info-icon {
+            width: 75px;
+            height: 75px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(255,255,255,.15);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 32px;
+
+            margin-bottom: 25px;
+        }
+
+        .info-card h2 {
+            font-size: 29px;
+
+            margin-bottom: 12px;
+        }
+
+        .info-card p {
+            color: #fff7ed;
+
+            line-height: 1.8;
+
+            font-size: 14px;
+        }
+
+        .tips {
+            margin-top: 30px;
+        }
+
+        .tip {
+            display: flex;
+
+            gap: 12px;
+
+            margin-bottom: 18px;
+
+            align-items: flex-start;
+        }
+
+        .tip i {
+            margin-top: 4px;
+
+            color: #fed7aa;
+        }
+
+        .tip span {
+            font-size: 14px;
+
+            color: #fff7ed;
+
+            line-height: 1.6;
+        }
+
+        /* BACK */
+
+        .back {
+            text-align: center;
+
+            margin-top: 25px;
+        }
+
+        .back a {
+            color: #64748b;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            font-size: 14px;
+        }
+
+        .back a:hover {
+            color: #ef4444;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:900px) {
+
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media(max-width:650px) {
+
+            .container {
+                padding: 20px;
+            }
+
+            .header {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 20px;
+            }
+
+            .header-left h1 {
+                font-size: 31px;
+            }
+
+            .dashboard-btn {
+                width: 100%;
+
+                justify-content: center;
+            }
+
+            .form-card,
+            .info-card {
+                padding: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="header-left">
+
+            <h1>
+
+                <i class="fa-solid fa-circle-minus"></i>
+
+                Add Expense
+
+            </h1>
+
+            <p>
+
+                Record your spending and stay in control of your finances.
+
+            </p>
+
+        </div>
+
+        <a href="{{ url_for('dashboard') }}"
+           class="dashboard-btn">
+
+            <i class="fa-solid fa-house"></i>
+
+            Dashboard
+
+        </a>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+        <!-- FORM -->
+
+        <div class="form-card">
+
+            <h2>Expense Details</h2>
+
+            <p class="subtitle">
+
+                Enter the details of your expense transaction.
+
+            </p>
+
+            <form method="POST">
+
+                <div class="input-group">
+
+                    <label>Expense Title</label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-receipt"></i>
+
+                        <input
+                            type="text"
+                            name="title"
+                            placeholder="Restaurant Bill"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Category</label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-layer-group"></i>
+
+                        <select name="category">
+
+                            <option>Food</option>
+                            <option>Shopping</option>
+                            <option>Transport</option>
+                            <option>Medical</option>
+                            <option>Bills</option>
+                            <option>Entertainment</option>
+                            <option>Education</option>
+                            <option>Travel</option>
+                            <option>Other</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Amount</label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            name="amount"
+                            placeholder="1500"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Notes</label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-note-sticky"></i>
+
+                        <textarea
+                            rows="4"
+                            name="notes"
+                            placeholder="Add an optional note..."></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit-btn">
+
+                    <i class="fa-solid fa-circle-minus"></i>
+
+                    Add Expense
+
+                </button>
+
+            </form>
+
+            <div class="back">
+
+                <a href="{{ url_for('dashboard') }}">
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Back to Dashboard
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- INFORMATION -->
+
+        <div class="info-card">
+
+            <div class="info-icon">
+
+                <i class="fa-solid fa-credit-card"></i>
+
+            </div>
+
+            <h2>Stay In Control</h2>
+
+            <p>
+
+                Recording every expense helps you understand where
+                your money goes and makes your financial reports
+                more accurate.
+
+            </p>
+
+            <div class="tips">
+
+                <div class="tip">
+
+                    <i class="fa-solid fa-check-circle"></i>
+
+                    <span>
+                        Choose the correct expense category.
+                    </span>
+
+                </div>
+
+                <div class="tip">
+
+                    <i class="fa-solid fa-check-circle"></i>
+
+                    <span>
+                        Record expenses immediately to avoid missing transactions.
+                    </span>
+
+                </div>
+
+                <div class="tip">
+
+                    <i class="fa-solid fa-chart-pie"></i>
+
+                    <span>
+                        Your spending will appear in your reports and analytics.
+                    </span>
+
+                </div>
+
+                <div class="tip">
+
+                    <i class="fa-solid fa-lightbulb"></i>
+
+                    <span>
+                        Reviewing spending regularly can help identify
+                        unnecessary expenses.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
